@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+@import url(https://unpkg.com/@webpixels/css@1.0/dist/index.css);
+.list-group-item{
+	margin-top: 10px;
+	background-color: #081C15;
+  	border: 2px solid #081C15;
+  	color: #D8F3DC;
+   	padding: 5px 10px; 
+   	margin-bottom: 10px; 
+   	border-radius: 5px;
+   	font-size: 20px;
+   	font-family: Playball, sans-serif;
+   	height: 50px;
+  	align-items: center;
+  	display: flex;
+  	
+}
+
+.list-group-item:hover {
+	color: #2D6A4F !important;
+}
