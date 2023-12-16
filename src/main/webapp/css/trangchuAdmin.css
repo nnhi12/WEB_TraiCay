@@ -1,0 +1,42 @@
+@import url(https://unpkg.com/@webpixels/css@1.0/dist/index.css);
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+.container-xl{
+	margin-left:75% !important;
+}
+
+.m-t-80 {
+  margin-top: 0px; 
+
+}
+
+#myList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.d-flex {
+  width: 100%;
+}
+
+
+
+.mt-25{
+	margin-top: 30px
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+
+
+.model-pagination {
+	margin-top: 25px;
+}
+
+.row{
+	margin-top: 10px
+}
+
