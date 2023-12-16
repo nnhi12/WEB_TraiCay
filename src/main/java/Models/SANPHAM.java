@@ -7,7 +7,7 @@ public class SANPHAM {
 	private int soLuong;
 	private String donViTinh;
 	private float gia;
-	private String hinhAnh;
+	private byte[] hinhAnh;
 	private String maGG;
 	private String maNCC;
 	
@@ -15,7 +15,7 @@ public class SANPHAM {
 		super();
 	}
 
-	public SANPHAM(String maSP, String tenSP, String maLoaiSP, int soLuong, String donViTinh, float gia, String hinhAnh,
+	public SANPHAM(String maSP, String tenSP, String maLoaiSP, int soLuong, String donViTinh, float gia, byte[] hinhAnh,
 			String maGG, String maNCC) {
 		super();
 		this.maSP = maSP;
@@ -77,11 +77,11 @@ public class SANPHAM {
 		this.gia = gia;
 	}
 
-	public String getHinhAnh() {
+	public byte[] getHinhAnh() {
 		return hinhAnh;
 	}
 
-	public void setHinhAnh(String hinhAnh) {
+	public void setHinhAnh(byte[] hinhAnh) {
 		this.hinhAnh = hinhAnh;
 	}
 

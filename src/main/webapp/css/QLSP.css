@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+@import url(https://unpkg.com/@webpixels/css@1.0/dist/index.css);
+.btn{
+  	border: 2px solid #081C15 !important;
+   	margin-bottom: 5px !important; 
+   	border-radius: 5px !important;
+   	font-size: 20px !important;
+   	font-family: Playball, sans-serif !important;
+   	height: 50px !important;
+  	margin-top:10px !important; 
+  	background-color: #081C15 !important; 
+  	color: #D8F3DC !important;
+}
+
+.btn:hover {
+	color: #2D6A4F !important;
+	background-color:#D8F3DC !important;
+	border: 2px solid #D8F3DC !important;
+}
