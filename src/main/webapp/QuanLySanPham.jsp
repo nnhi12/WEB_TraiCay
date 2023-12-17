@@ -50,5 +50,6 @@
 			</div>
 		</div>
 	</div>
+	
 	<jsp:include page="./footerAdmin.jsp"></jsp:include>
 </body>

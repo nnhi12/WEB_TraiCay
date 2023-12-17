@@ -1,15 +1,12 @@
 package Models;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class GIAMGIA {
 	private String maGG;
 	private int giaTri;
-	private Date ngayHetHan;
+	private LocalDate ngayHetHan;
 	
-	public GIAMGIA() {
-		super();
-	}
 	
 	public GIAMGIA(String maGG, int giaTri) {
 		super();
@@ -17,7 +14,7 @@ public class GIAMGIA {
 		this.giaTri = giaTri;
 	}
 
-	public GIAMGIA(String maGG, int giaTri, Date ngayHetHan) {
+	public GIAMGIA(String maGG, int giaTri, LocalDate ngayHetHan) {
 		super();
 		this.maGG = maGG;
 		this.giaTri = giaTri;
@@ -40,11 +37,11 @@ public class GIAMGIA {
 		this.giaTri = giaTri;
 	}
 
-	public Date getNgayHetHan() {
+	public LocalDate getNgayHetHan() {
 		return ngayHetHan;
 	}
 
-	public void setNgayHetHan(Date ngayHetHan) {
+	public void setNgayHetHan(LocalDate ngayHetHan) {
 		this.ngayHetHan = ngayHetHan;
 	}
 	

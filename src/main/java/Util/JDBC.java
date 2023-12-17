@@ -2,8 +2,10 @@ package Util;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class JDBC {
 	public static Connection getConnection() {
@@ -11,14 +13,9 @@ public class JDBC {
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			
-			String url = "jdbc:mysql://localhost:3306/nckh?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
+			String url = "jdbc:mysql://localhost:3306/dtdm?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
 			String username = "root";
-			String password = "Nhi@2003";
-
-
-
-
-			
+			String password = "141dquynh";			
 			conn = DriverManager.getConnection(url, username, password);
 			
 			//System.out.println("Connection successfully!");
@@ -40,4 +37,11 @@ public class JDBC {
 			e.printStackTrace();
 		}
 	}
+	public static Date getSQLDate(LocalDate date) {
+        return java.sql.Date.valueOf(date);
+    }
+
+    public static LocalDate getUtilDate(Date sqlDate) {
+        return sqlDate.toLocalDate();
+    }
 }
