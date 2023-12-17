@@ -10,6 +10,12 @@ public class GIAMGIA {
 	public GIAMGIA() {
 		super();
 	}
+	
+	public GIAMGIA(String maGG, int giaTri) {
+		super();
+		this.maGG = maGG;
+		this.giaTri = giaTri;
+	}
 
 	public GIAMGIA(String maGG, int giaTri, Date ngayHetHan) {
 		super();
