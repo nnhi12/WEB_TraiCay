@@ -9,6 +9,12 @@ public class NHACUNGCAP {
 	public NHACUNGCAP() {
 		super();
 	}
+	
+	public NHACUNGCAP(String maNCC, String tenNCC) {
+		super();
+		this.maNCC = maNCC;
+		this.tenNCC = tenNCC;
+	}
 
 	public NHACUNGCAP(String maNCC, String tenNCC, String diaChi, String sDT) {
 		super();

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,9 +34,10 @@
 		        <tbody>
 
 		            <tr>
-		              <td></td>
-		              <td></td>
-		              <td></td>
+		              <td><c:out value="${sanpham.tenSanPham}" /></td>
+		              <td><c:out value="${sanpham.soLuong}" /></td>
+		              <td><c:out value="${sanpham.donViTinh}" /></td>
+		              <td><c:out value="${sanpham.gia}" /></td>
 		            </tr>
 		        </tbody>
 		      </table>
