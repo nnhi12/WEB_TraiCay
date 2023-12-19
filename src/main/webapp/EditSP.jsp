@@ -28,10 +28,16 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th colspan="2" class="h3">Thông tin sản phẩm</th>
+									<th colspan="2" class="h4" style = "font-size: 24px; color: #2D6A4F;
+									font-family: Playball, sans-serif;">Thông tin sản phẩm</th>
 								</tr>
 							</thead>
 							<tbody>
+								<tr>
+									<td><label for="MaSP" class="h4">Mã sản phẩm:</label></td>
+									<td><input type="text" id="MaSP" name="MaSP"
+										class="form-control" value="${sv.ID_SinhVien}" readonly></td>
+								</tr>
 								<tr>
 									<td><label for="TenSP" class="h4">Tên sản phẩm:</label></td>
 									<td><input type="text" id="TenSP" name="TenSP"
@@ -70,7 +76,9 @@
 								<tr>
 									<td><label for="MaNCC" class="h4">Nhà cung cấp:</label></td>
 									<td><select class="form-control" id="MaNCC" name="MaNCC" required>
-										<option value="CC001"> Nhà cung cấp</option>
+										<c:forEach items="${listGG}" var="gg">
+									        <option value="${gg.maGG}" ${gg.maGG == maGG ? 'selected' : ''}>${gg.tenGG}</option>
+									    </c:forEach>
 									</select></td>
 								</tr>
 							</tbody>

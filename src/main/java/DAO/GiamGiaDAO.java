@@ -16,7 +16,7 @@ public class GiamGiaDAO {
 	
 	public GiamGiaDAO() {}
 	
-	public List<GIAMGIA> selectNCC() throws SQLException {
+	public List<GIAMGIA> selectGG() throws SQLException {
 		List<GIAMGIA> GGs = new ArrayList<>();
 		
 		// Establish a connection
