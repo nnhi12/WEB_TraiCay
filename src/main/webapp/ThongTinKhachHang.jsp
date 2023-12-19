@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,10 +32,14 @@
 					</div>
 					<div class="col-md-4">
 						<div class="row">
-							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;" name="taikhoan" id="taikhoan">
+							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;"
+								name="taikhoan" id="taikhoan"
+								value="${taikhoan.taiKhoan}">
 						</div>
 						<div class="row">
-							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;" name="matkhau" id="matkhau">
+							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;"
+								name="matkhau" id="matkhau"
+								value="${taikhoan.matKhau}">
 						</div>
 					</div>
 				</div>
@@ -62,19 +67,29 @@
 					</div>
 					<div class="col-md-4">
 						<div class="row">
-							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;" name="tenkh" id="tenkh">
+							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;"
+								name="tenkh" id="tenkh"
+								value="${khachhang.hoTen}">
 						</div>
 						<div class="row">
-							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;" name="gioitinh" id="gioitinh">
+							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;"
+								name="gioitinh" id="gioitinh"
+								value="${khachhang.gioiTinh}">
 						</div>
 						<div class="row">
-							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;" name="ngaysinh" id="ngaysinh">
+							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;"
+								name="ngaysinh" id="ngaysinh"
+								value="<fmt:formatDate value='${khachhang.ngaySinh}' pattern='dd/MM/yyyy'/>">
 						</div>
 						<div class="row">
-							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;" name="diachi" id="diachi">
+							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;"
+								name="diachi" id="diachi"
+								value="${khachhang.diaChi}">
 						</div>
 						<div class="row">
-							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;" name="sdt" id="sdt">
+							<input readonly style="margin-top: 15px; font-size: 20px; border:1px solid;"
+								name="sdt" id="sdt"
+								value="${khachhang.sDT}">
 						</div>
 					</div>
 				</div>
