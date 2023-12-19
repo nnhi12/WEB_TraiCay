@@ -15,13 +15,8 @@ public class JDBC {
 			
 			String url = "jdbc:mysql://localhost:3306/dtdm?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
 			String username = "root";
-
-			String password = "Thanh07122904";
-
-
-
-
-
+			String password = "2411";
+			
 			conn = DriverManager.getConnection(url, username, password);
 			
 			//System.out.println("Connection successfully!");
