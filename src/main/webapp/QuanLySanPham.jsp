@@ -43,8 +43,8 @@
 		              <td><c:out value="${sanpham.soLuong}" /></td>
 		              <td><c:out value="${sanpham.donViTinh}" /></td>
 		              <td><c:out value="${sanpham.gia}" /></td> 
-		              <td><a href="edit?id=<c:out value='${sanpham.maSP}' />">Edit</a></td>
-		              <td><a href="delete?id=<c:out value='${sanpham.maSP}' />">Delete</a></td>
+		              <td><a href="ChiTietSPAdminController?maSP=<c:out value='${sanpham.maSP}' />">Edit</a></td>
+		              <td><a href="DeleteSPController?maSP=<c:out value='${sanpham.maSP}' />">Delete</a></td>
 		            </tr>
 		            </c:forEach>
 		        </tbody>

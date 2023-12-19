@@ -15,12 +15,17 @@ import Models.SANPHAM;
 import Util.HandleException;
 import Util.JDBC;
 
+
 public class SanPhamDAO {
 	private static final String SELECT_SANPHAM = "SELECT * FROM sanpham";
 	private static final String SELECT_SANPHAM_BYMaSP = "SELECT * FROM sanpham WHERE MaSP = ?";
+	private static final String SELECT_ANH_BYMaSP = "SELECT HinhAnh FROM sanpham WHERE MaSP = ?";
 	private static final String INSERT_SANPHAM_SQL = "INSERT INTO sanpham" +
 	        "  (MaSP, TenSP, MaLoaiSP, SoLuong, DonViTinh, Gia, HinhAnh, MaGG, MaNCC) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-	String SqlListSP = "SELECT * FROM sanpham";
+
+	private static final String DELETE_SANPHAM_BYMaSP = "DELETE FROM sanpham WHERE MaSP = ?;";
+	private static final String UPDATE_SANPHAM = "UPDATE sanpham SET TenSP = ?, MaLoaiSP = ?, SoLuong =?, DonViTinh =?, Gia = ?, HinhAnh = ?, MaGG = ?, MaNCC = ? WHERE MaSP = ?;";
+	
 	public SanPhamDAO() {}
 	
 	public SANPHAM layThongTinSP(String MaSP) throws SQLException, IOException{
@@ -37,20 +42,9 @@ public class SanPhamDAO {
                 int SoLuong = rs.getInt("SoLuong");
                 String DonViTinh = rs.getString("DonViTinh");
                 Float Gia = rs.getFloat("Gia");
-                InputStream imageStream = rs.getBinaryStream("HinhAnh");
-                byte[] HinhAnh = null;
-                if (imageStream != null) {
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = imageStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    }
-                    HinhAnh = outputStream.toByteArray();
-                }
                 String MaGG = rs.getString("MaGG");
                 String MaNCC = rs.getString("MaNCC");
-                sp = new SANPHAM(MaSP, TenSP, MaLoaiSP, SoLuong, DonViTinh, Gia, HinhAnh, MaGG, MaNCC);
+                sp = new SANPHAM(MaSP, TenSP, MaLoaiSP, SoLuong, DonViTinh, Gia, MaGG, MaNCC);
                
             }
             
@@ -59,6 +53,35 @@ public class SanPhamDAO {
         }
         return sp;
 	}
+	
+	public byte[] layDuLieuAnh(String MaSP) throws SQLException, IOException {
+	    byte[] HinhAnh = null;
+	    ResultSet rs = null;
+
+	    try (Connection connection = JDBC.getConnection();
+	         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ANH_BYMaSP)) {
+	        preparedStatement.setString(1, MaSP);
+	        rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            InputStream imageStream = rs.getBinaryStream("HinhAnh");
+
+	            if (imageStream != null) {
+	                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	                byte[] buffer = new byte[4096];
+	                int bytesRead;
+	                while ((bytesRead = imageStream.read(buffer)) != -1) {
+	                    outputStream.write(buffer, 0, bytesRead);
+	                }
+	                HinhAnh = outputStream.toByteArray();
+	            }
+	        }
+	    } catch (SQLException exception) {
+	    	HandleException.printSQLException(exception);
+	    }
+	    return HinhAnh;
+	}
+	
 	
 	public String findNextMaSP() {
 	    String sql = "SELECT MAX(MaSP) FROM sanpham";
@@ -135,11 +158,12 @@ public class SanPhamDAO {
         }
 	}
 	
+
 	public List<SANPHAM> getAllSP() {
         List<SANPHAM> sanphams = new ArrayList<>();
         Connection conn = JDBC.getConnection();
         try {
-            PreparedStatement ps = conn.prepareStatement(SqlListSP);
+            PreparedStatement ps = conn.prepareStatement(SELECT_SANPHAM);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SANPHAM sanpham = new SANPHAM();
@@ -158,4 +182,32 @@ public class SanPhamDAO {
         }
         return sanphams;
     }
+
+	public boolean deleteSP(String MaSP) throws SQLException {
+		boolean rowDeleted;
+        try (Connection connection = JDBC.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_SANPHAM_BYMaSP);) {
+            statement.setString(1, MaSP);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
+	}
+	
+	public boolean updateSP(SANPHAM sp) throws SQLException {
+		boolean rowUpdated;
+        try (Connection connection = JDBC.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_SANPHAM);) {
+        	statement.setString(1, sp.getTenSP());
+            statement.setString(2, sp.getMaLoaiSP());
+            statement.setInt(3, sp.getSoLuong());
+            statement.setString(4, sp.getDonViTinh());
+            statement.setFloat(5, sp.getGia());
+            statement.setBytes(6, sp.getHinhAnh());
+            statement.setString(7, sp.getMaGG());
+            statement.setString(8, sp.getMaNCC());
+            statement.setString(9, sp.getMaSP());
+            System.out.println(statement);
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
+	}
+
 }
