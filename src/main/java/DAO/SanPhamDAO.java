@@ -17,6 +17,8 @@ import Util.JDBC;
 public class SanPhamDAO {
 	private static final String SELECT_SANPHAM = "SELECT * FROM sanpham";
 	private static final String SELECT_SANPHAM_BYMaSP = "SELECT * FROM sanpham WHERE MaSP = ?";
+	private static final String INSERT_SANPHAM_SQL = "INSERT INTO sanpham" +
+	        "  (MaSP, TenSP, MaLoaiSP, SoLuong, DonViTinh, Gia, HinhAnh, MaGG, MaNCC) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
 	public SanPhamDAO() {}
 	
@@ -109,5 +111,26 @@ public class SanPhamDAO {
 			HandleException.printSQLException(exception);
 		}
 		return sanphams;
+	}
+	
+	public void insertSP(SANPHAM sp) throws SQLException {
+		System.out.println(INSERT_SANPHAM_SQL);
+        // try-with-resource statement will auto close the connection.
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SANPHAM_SQL)) {
+            preparedStatement.setString(1, sp.getMaSP());
+            preparedStatement.setString(2, sp.getTenSP());
+            preparedStatement.setString(3, sp.getMaLoaiSP());
+            preparedStatement.setInt(4, sp.getSoLuong());
+            preparedStatement.setString(5, sp.getDonViTinh());
+            preparedStatement.setFloat(6, sp.getGia());
+            preparedStatement.setBytes(7, sp.getHinhAnh());
+            preparedStatement.setString(8, sp.getMaGG());
+            preparedStatement.setString(9, sp.getMaNCC());
+            
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            HandleException.printSQLException(exception);
+        }
 	}
 }
