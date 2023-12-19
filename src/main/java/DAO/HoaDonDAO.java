@@ -1,22 +1,34 @@
 package DAO;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 import Models.HOADON;
 import Models.CHITIETHOADON;
 import Models.GIAOVAN;
+import Models.GIAMGIA;
+
 import Util.HandleException;
 import Util.JDBC;
 
 public class HoaDonDAO {
 	private static final String SELECT_HOADON = "SELECT * FROM hoadon WHERE MaHD = ?";
 	private static final String SELECT_CHITIETHD = "SELECT *  FROM chitiethoadon WHERE MaHD = ?";
+  private static final String SELECT_HoaDon= "select \r\n"
+				+ "gv.TinhTrang,cthd.SoLuong, sp.DonViTinh, kh.HoTen,kh.DiaChi,kh.SDT, hd.NgayDatHang, sp.HinhAnh,sp.TenSP,hd.TongTien,gg.GiaTri,cthd.TongTien from  `dtdm`.chitiethoadon cthd\r\n"
+				+ "inner join `dtdm`.hoadon hd on cthd.MaHD = hd.MaHD\r\n"
+				+ "inner join `dtdm`.sanpham sp on cthd.MaSP = sp.MaSP\r\n"
+				+ "inner join `dtdm`.khachhang kh on hd.MaKH = kh.MaKH\r\n"
+				+ "inner join `dtdm`.giaovan gv on hd.MaHD = gv.MaHD\r\n"
+				+ "inner join `dtdm`.giamgia gg on gg.MaGG = hd.MaGG\r\n"
+				+ " where MaHD =?;";
 	
 	public HoaDonDAO() {}
 	

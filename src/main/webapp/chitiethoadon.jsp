@@ -30,22 +30,41 @@
            
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
 </head>
 
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+    <jsp:include page="./headerAdmin.jsp"></jsp:include>
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+         
+            <div class="col-md-3">
+				<jsp:include page="./linklistAdmin.jsp"></jsp:include>
+			</div>
+			<div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <div class="invoice-title">                            
                             <div class="mb-4">
+                           
                                 <h2 class="mb-1 ">CHI TIẾT ĐƠN HÀNG</h2>
                             </div>
                            
-                                <p class="mb-1">Đang chuẩn bị</p>
+                                <td><c:choose>
+					        <c:when test="${'CB' eq chitiet.giaoVan.tinhTrang}">
+					            Chuẩn bị đóng gói
+					        </c:when>
+					        <c:when test="${'DG' eq chitiet.giaoVan.tinhTrang}">
+					            Đang giao hàng
+					        </c:when>
+					        <c:when test="${'DT' eq chitiet.giaoVan.tinhTrang}">
+					            Đã nhận hàng
+					        </c:when>
+					        <c:otherwise>
+					            Trạng thái không xác định
+					        </c:otherwise>
+					    </c:choose></td>
                            
                         </div>
                         <hr class="my-4">
@@ -54,13 +73,14 @@
                                             
                                     <h5 class="font-size-16 mb-3">Thông tin giao hàng:</h5>                                   
                                     <h5 class="font-size-15 mb-2">Tên khách hàng</h5>
-                                    <h6 class="font-size-12 mb-2">(Tên khách hàng)</h6>
+                                    <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.khachHang.hoTen}'/>">                                 
                                     <h5 class="font-size-15 mt-2">Địa chỉ</h5>    
-                                    <h6 class="font-size-12 mb-2">(Địa chỉ)</h6>
+                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.khachHang.diaChi}'/>">                                 
                                     <h5 class="font-size-15 mt-2">Số Điện Thoại</h5>                              
-                                    <h6 class="font-size-12 mb-2">001-234-5678</h6>                                                                                  
+                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.khachHang.sDT}'/>">                                                                                                         
                                     <h5 class="font-size-15 mt2">Ngày đặt</h5>
-                                    <p>05/12/2023</p>
+                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.HD.ngayDatHang}'/>">                                                                                                         
+                                
                                 </div>
                             </div>                
                         </div>
@@ -79,30 +99,26 @@
                                             </td>
                                             <td>
                                                 <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
-                                                    <h3>Tên sản phẩm</h3>
+                                                    <input class="font-size-15 style="  mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.sanPham.tenSP}'/>"style="font-size: 20px;" >                                                                                                         
+                                
                                                     <td> 
-                                                         <p>Số lượng : 1</p>
+                                                         <div class="font-size-15 mb-2">
+                                                         
+														    <p>Số lượng: </p>
+														<input type="text" id="hoten" value="<c:out value='${chitiet.soLuong} ${chitiet.sanPham.donViTinh}' />">	   
+														</div>
+
                                                     </td>
-                                                    <td> 
-                                                        <p>kg/hộp</p>
-                                                   </td>                                                                
+                                                                                                                   
                                                 </div>
                                             </td>
-                                        </tr>                                    
-                                        <tr>
-                                            <th scope="row" colspan="4" class="text-end">Tổng</th>
-                                            <td class="text-end">38.000 vnd</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">
-                                               Giảm giá :</th>
-                                            <td class="border-0 text-end"> -5.000 vnd</td>
-                                        </tr>
+                                        </tr>                                                                        
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">Thành Tiền :</th>
                                             <td class="border-0 text-end">
-                                                <h4 class="m-0 fw-semibold">32.000 vnd</h4>
+                                             
+										    <input class="font-size-15 mb-2" type="text" id="hoten" value="<c:out value='${chitiet.tongTien}'/> ">
+											
                                             </td>
                                         </tr>
 
@@ -111,7 +127,8 @@
                             </div>                          
                         </div>
                     </div>
-                </div>
+                    </div>
+                
             </div>
         </div>
     </div>
@@ -121,6 +138,7 @@
     <script type="text/javascript">
 
     </script>
+    <jsp:include page="./footerAdmin.jsp"></jsp:include>
 </body>
 
 </html>

@@ -15,7 +15,7 @@ import Util.JDBC;
 public class KhachHangDAO {
 	private static final String SELECT_ALL_KHACHHANG = "SELECT * FROM khachhang";
 	private static final String SELECT_KHACHHANG = "SELECT * FROM khachhang WHERE MaKH = ?";
-	
+	String SqlCreateKH = "INSERT INTO khachhang (MaKH, HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaTaiKhoan) VALUE (?,?,?,?,?,?,?)";	
 	public KhachHangDAO() {}
 	
 	public List<KHACHHANG> layAllThongTinKhachHang() {
@@ -60,4 +60,23 @@ public class KhachHangDAO {
 			}
 		return kh;
 	}
+	
+	public boolean CreateNewKH(KHACHHANG Khachhang) throws SQLException {
+		   Connection conn = JDBC.getConnection();
+	        try {
+	            PreparedStatement ps = conn.prepareStatement(SqlCreateKH);
+	            ps.setString(1, Khachhang.getMaKH());
+	            ps.setString(2, Khachhang.getHoTen());
+	            ps.setString(3, Khachhang.getGioiTinh());
+	            ps.setDate(4, new java.sql.Date(Khachhang.getNgaySinh().getTime()));
+	            ps.setString(5, Khachhang.getDiaChi());
+	            ps.setString(6, Khachhang.getsDT());
+	            ps.setString(7, Khachhang.getMaTaiKhoan());	    
+
+	            int rowsInsert = ps.executeUpdate();
+	            return rowsInsert > 0;
+	        }finally {
+	            JDBC.closeConnection(conn);
+	        }
+	   }
 }

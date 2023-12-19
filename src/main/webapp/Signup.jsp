@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,30 +18,30 @@
     <!-- Tabs Titles -->
     <h1>SIGN UP</h1>
     <!-- Login Form -->
-    <form>
+    <form action="<%= request.getContextPath() %>/taikhoan/ThemTaiKhoan" method="post">
     <div class="thongtindangky">
 	  <div>
-	    <input type="text" id="username" class="fadeIn second" name="login" placeholder="Username">
-	    <input type="text" id="password" class="fadeIn second" name="login" placeholder="Password">
+	    <input type="text" id="TaiKhoan" class="fadeIn second" name="TaiKhoan" placeholder="Username">
+	    <input type="text" id="MatKhau" class="fadeIn second" name="MatKhau" placeholder="Password">
 	  </div>
 	  <div>
-	    <input type="text" id="name" class="fadeIn second" name="login" placeholder="Name">
-	    <input type="text" id="phone" class="fadeIn second" name="login" placeholder="Phone">
+	    <input type="text" id="HoTen" class="fadeIn second" name="HoTen" placeholder="Name">
+	    <input type="text" id="SDT" class="fadeIn second" name="SDT" placeholder="Phone">
 	  </div>
 	  <div class="field-group">
 	    <div class="field">
-	    <label for="gender">Gender</label>
-	      <select id="gender" class="fadeIn third" name="gender">
-	        <option value="male">Male</option>
-	        <option value="female">Female</option>
+	    <label for="GioiTinh">Gender</label>
+	      <select id="GioiTinh" class="fadeIn third" name="GioiTinh">
+	        <option value="Nam">Nam</option>
+	        <option value="Nu">Nu</option>
 	      </select>
 	    </div>
 	    <div class="field">
-	    <label for="dob">Birthday</label>
-	      <input type="date" id="dob" class="fadeIn third" name="dob">
+	    <label for="NgaySinh">Birthday</label>
+	      <input type="date" id="NgaySinh" class="fadeIn third" name="NgaySinh">
 	    </div>
 	  </div>
-	  <input type="text" id="address" class="fadeIn fourth" name="login" placeholder="Address">
+	  <input type="text" id="DiaChi" class="fadeIn fourth" name="DiaChi" placeholder="Address">
 	  <input type="submit" class="fadeIn fourth" value="Sign Up">
 	</div>
   
@@ -48,7 +49,7 @@
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <h7>Bạn đã có tài khoản? </h7><a class="underlineHover" href="#">Login</a>
+      <h7>Bạn đã có tài khoản? </h7><a class="underlineHover" href="<%= request.getContextPath() %>/Login.jsp">Login</a>
     </div>
 
   </div>

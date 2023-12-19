@@ -16,7 +16,7 @@ public class LoaiSPDAO {
 	
 	public LoaiSPDAO() {}
 	
-	public List<LOAISP> selectNCC() throws SQLException {
+	public List<LOAISP> selectLSP() throws SQLException {
 		List<LOAISP> LSPs = new ArrayList<>();
 		
 		// Establish a connection

@@ -15,31 +15,47 @@
 </head>
 <body>
 	<jsp:include page="./headerAdmin.jsp"></jsp:include>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
 				<jsp:include page="./linklistAdmin.jsp"></jsp:include>
 			</div>
 			<div class="col-md-9">
-			<button type="submit" class="btn btn-primary" onclick="window.location.href='<%=request.getContextPath()%>/giamgia/newgg'">Insert</button>
 				<table class="table table-bordered" style = "margin-top:10px;">
 		        <thead>
-		          <tr>
-		          	<th>Mã giảm giá</th>
-		            <th>Phần trăm giảm</th>
-		            <th>Ngày hết hạn</th>
-		            
+		          <tr>		          	
+		            <th>Họ tên</th>
+		            <th>Địa chỉ</th>
+		            <th>SDT</th>
+		             <th>Tên Sản phẩm</th>
+		            <th>Tổng Tiền</th>
+		            <th>Tình Trạng</th>
 		          </tr>
 		        </thead>
 		        <tbody> 
-		        <c:forEach var="gg" items ="${listgiamgia}">
+		        <c:forEach var="gg" items ="${listcthd}">
 		            <tr>		       
-		              <td><c:out value="${gg.maGG}" /></td>
-		              <td><c:out value="${gg.giaTri}" /></td>
-		              <td><c:out value="${gg.ngayHetHan}" /></td>   
-		              <td><a href="editgg?magiamgia=${gg.maGG}"> <i class="material-icons" data-toggle="tooltip" title="Edit" style="font-color: #F49608">edit</i></a>
-		              <a href="deletegg?magiamgia=${gg.maGG}"><i class="material-icons" data-toggle="tooltip" title="Delete" style="font-color: #D80404">delete</i></a>		         
+		            
+					  <td>${gg.khachHang.hoTen}</td>
+					  <td>${gg.khachHang.diaChi}</td>
+					  <td>${gg.khachHang.sDT}</td>
+					  <td>${gg.sanPham.tenSP}</td>
+					  <td>${gg.tongTien}</td>
+					  <td><c:choose>
+					        <c:when test="${'CB' eq gg.giaoVan.tinhTrang}">
+					            Chuẩn bị đóng gói
+					        </c:when>
+					        <c:when test="${'DG' eq gg.giaoVan.tinhTrang}">
+					            Đang giao hàng
+					        </c:when>
+					        <c:when test="${'DT' eq gg.giaoVan.tinhTrang}">
+					            Đã nhận hàng
+					        </c:when>
+					        <c:otherwise>
+					            Trạng thái không xác định
+					        </c:otherwise>
+					    </c:choose></td>
+		              <td><a href="viewcthd?mahd=${gg.maHD}"> <i class="material-icons" data-toggle="tooltip" title="Edit" style="font-color: #F49608">chi tiết</i></a>
 		              </td>
 		            </tr>
 		            </c:forEach>
