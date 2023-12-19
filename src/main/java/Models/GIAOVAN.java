@@ -11,6 +11,13 @@ public class GIAOVAN {
 	public GIAOVAN() {
 		super();
 	}
+	
+	public GIAOVAN(String maGV, String maHD, String tinhTrang) {
+		super();
+		this.maGV = maGV;
+		this.maHD = maHD;
+		this.tinhTrang = tinhTrang;
+	}
 
 	public GIAOVAN(String maGV, String maHD, Date ngayNhanHang, String tinhTrang) {
 		super();
