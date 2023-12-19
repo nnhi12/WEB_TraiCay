@@ -1,7 +1,7 @@
 package Models;
 
 public class TAIKHOAN {
-	private String maKH;
+	private String maTK;
 	private String taiKhoan;
 	private String matKhau;
 	private String phanQuyen;
@@ -9,21 +9,27 @@ public class TAIKHOAN {
 	public TAIKHOAN() {
 		super();
 	}
-
-	public TAIKHOAN(String maKH, String taiKhoan, String matKhau, String phanQuyen) {
+	
+	public TAIKHOAN(String taiKhoan, String matKhau) {
 		super();
-		this.maKH = maKH;
+		this.taiKhoan = taiKhoan;
+		this.matKhau = matKhau;
+	}
+
+	public TAIKHOAN(String maTK, String taiKhoan, String matKhau, String phanQuyen) {
+		super();
+		this.maTK = maTK;
 		this.taiKhoan = taiKhoan;
 		this.matKhau = matKhau;
 		this.phanQuyen = phanQuyen;
 	}
 
-	public String getMaKH() {
-		return maKH;
+	public String getMaTK() {
+		return maTK;
 	}
 
-	public void setMaKH(String maKH) {
-		this.maKH = maKH;
+	public void setMaTK(String maTK) {
+		this.maTK = maTK;
 	}
 
 	public String getTaiKhoan() {

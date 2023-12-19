@@ -1,0 +1,63 @@
+@import url(https://unpkg.com/@webpixels/css@1.0/dist/index.css);
+
+h3
+{
+	text-align: center !important;
+}
+
+.personal-info-form .form-group {
+  margin-bottom: 10px;
+  margin-top: 50px !important;
+}
+
+.personal-info-form label {
+  display: block;
+  font-size: 18px !important;
+  font-family: TimeNewsRoman, sans-serif;
+  color: black;
+  background-color: #80ffdb;
+  width: fit-content;
+  padding: 5px;
+  border:  1px solid #52b788;
+  border-radius: 30px;
+}
+
+.personal-info-form input[type="text"] {
+  flex-grow: 1;
+  padding: 5px;
+  border: 2px solid #9dbbff !important;
+  height: 45px;
+  
+}
+
+.setbtn{
+	background-color: #ABC4FF;
+  	border: 2px solid #ABC4FF;
+  	border-radius: 10px;
+  	font-size: 14pt;
+  	padding: 7px;
+}
+
+.pagination {
+	margin-top: 15px;
+	margin-bottom: 15px !important;
+}
+
+.horizontal-label label{
+	display: flex;
+	align-items: center;
+	color: black;
+  	background-color: #ffffff;
+	padding: 5px;
+	border: 1px solid #173728;
+}
+
+.label-image {
+	width: 70px;
+	height: 70px;
+	margin-right: 30px;
+}
+
+.label-text {
+	font-size: 20px;
+}
