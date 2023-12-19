@@ -23,20 +23,26 @@
 		            <th>Tên khách hàng</th>
 		            <th>Số điện thoại</th>
 		            <th>Chi tiết</th>
-		            <th></th>
 		          </tr>
 		        </thead>
 		        <tbody>
-		        	<!--
+		           	<c:forEach var="listKH" items="${listKH}">
 		            <tr>
-		              <td><c:out value="${sanpham.maSanPham}" /></td>
-		              <td><c:out value="${sanpham.tenSanPham}" /></td>
-		              <td><c:out value="${sanpham.soLuong}" /></td>
-		              <td><c:out value="${sanpham.donViTinh}" /></td>
-		              <td><c:out value="${sanpham.gia}" /></td> 
-		              <td><a href="edit?id=<c:out value='${sanpham.maSanPham}' />">Edit</a></td>
+		              <td><c:out value="${listKH.maKH}" /></td>
+		              <td><c:out value="${listKH.hoTen}" /></td>
+		              <td><c:out value="${listKH.sDT}" /></td>
+		              <td>
+		              	<form action="showinfo" method="post">
+		              		<input type="hidden" id="makh" name="makh" value="${listKH.maKH}">
+		              		<button type="submit"
+		              			onmouseover="this.style.color='red'"
+								onmouseout="this.style.color='blue'"
+								style="text-decoration: underline; color:blue; cursor:pointer;
+										background:none; border:none;">Chi tiết</button>
+		              	</form>
+		              </td>
 		            </tr>
-		            -->
+		            </c:forEach>   
 		        </tbody>
 		      </table>
 			</div>

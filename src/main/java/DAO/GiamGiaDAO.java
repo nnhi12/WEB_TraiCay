@@ -21,6 +21,7 @@ public class GiamGiaDAO {
 	private static final String UPDATE_GiamGia  ="UPDATE giamgia set GiaTri=?,NgayHetHan=? WHERE MaGG =?";
 	public GiamGiaDAO() {}
 	
+
 	public List<GIAMGIA> selectallgiamgia() throws SQLException {
 		List<GIAMGIA> GGs = new ArrayList<>();
 		

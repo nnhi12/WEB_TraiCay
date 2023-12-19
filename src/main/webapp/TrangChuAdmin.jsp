@@ -32,13 +32,15 @@
 		          </tr>
 		        </thead>
 		        <tbody>
-
+					<c:forEach var="sanpham" items="${listSP}">
 		            <tr>
-		              <td><c:out value="${sanpham.tenSanPham}" /></td>
+		              <td><c:out value="${sanpham.tenSP}" /></td>
 		              <td><c:out value="${sanpham.soLuong}" /></td>
 		              <td><c:out value="${sanpham.donViTinh}" /></td>
 		              <td><c:out value="${sanpham.gia}" /></td>
+		
 		            </tr>
+		            </c:forEach>
 		        </tbody>
 		      </table>
 			</div>

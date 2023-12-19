@@ -22,7 +22,7 @@
 				<jsp:include page="./linklistAdmin.jsp"></jsp:include>
 			</div>
 			<div class="col-md-9">
-			<button type="submit" class="btn btn-primary" onclick="window.location.href='<%=request.getContextPath()%>/TaiKhoan/new'">Insert</button>
+    			<button type="submit" class="btn btn-primary" onclick="window.location.href='<%=request.getContextPath()%>/LoadDataInsertController'" >Insert</button>
 				<table class="table table-bordered" style = "margin-top:10px;">
 		        <thead>
 		          <tr>
@@ -36,15 +36,17 @@
 		          </tr>
 		        </thead>
 		        <tbody>
+		        <c:forEach var="sanpham" items="${listSP}">
 		            <tr>
-		              <td><c:out value="${sanpham.maSanPham}" /></td>
-		              <td><c:out value="${sanpham.tenSanPham}" /></td>
+		              <td><c:out value="${sanpham.maSP}" /></td>
+		              <td><c:out value="${sanpham.tenSP}" /></td>
 		              <td><c:out value="${sanpham.soLuong}" /></td>
 		              <td><c:out value="${sanpham.donViTinh}" /></td>
 		              <td><c:out value="${sanpham.gia}" /></td> 
-		              <td><a href="edit?id=<c:out value='${sanpham.maSanPham}' />">Edit</a></td>
-		              <td><a href="delete?id=<c:out value='${sanpham.maSanPham}' />">Delete</a></td>
+		              <td><a href="ChiTietSPAdminController?maSP=<c:out value='${sanpham.maSP}' />">Edit</a></td>
+		              <td><a href="DeleteSPController?maSP=<c:out value='${sanpham.maSP}' />">Delete</a></td>
 		            </tr>
+		            </c:forEach>
 		        </tbody>
 		      </table>
 			</div>

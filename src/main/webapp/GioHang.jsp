@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,25 +29,74 @@
 						<label for="id">Giỏ hàng của bạn</label>
 					</div>
 				</div>
-				<div class="row">
-					<div class="horizontal-label">
-						<label> 
-							<input type="checkbox" style = "margin-right: 20px">
-							<img src="assets/contain_straw.jpg" alt="Image" class="label-image"> 
-							<span class="label-text">
-								<a><p>Dâu tây Đà Lạt</p>
-									<p>Số lượng:</p>
-									<p>Đơn giá: </p>
-								</a>
-							</span>
-							<button class="btn-success" style = "margin-left: 50%">Edit</button>
-        					<button style = "margin-left: 20px" class="btn-success">Delete</button>
-						</label>
+				<c:forEach var="gioHang" items="${listGH}" varStatus="status">
+					<div class="row">
+						<div class="horizontal-label">
+							<label> 
+								
+								<input type="checkbox" style = "margin-right: 20px" value = "${gioHang.maSP}">
+								<img src="assets/contain_straw.jpg" alt="Image" class="label-image"> 
+								<span class="label-text">
+									<a><p>${listTen[status.index]}</p>
+									<form id="updateForm" action="update" method="post">
+										<input type = "hidden"  id="masp" name="masp" value="${gioHang.maSP}">
+										<p>Số lượng: <input type="text" name="soluong" value="${gioHang.soLuong}"></p>
+									</form>
+										<p>Giá: ${listGia[status.index]}</p>
+									</a>
+								</span>
+								<button class="btn-success edit-button" style = "margin-left: 50%">Edit</button>
+								    
+								<button type="submit" class="btn-success save-button" style="display: none; margin-left: 60%"" onclick="submitForm()">Save</button>
+								
+								<form action="delete" method="post">
+									<button type="submit"  style = "margin-left: 20px" class="btn-success delete-button" id="masp" name="masp"
+										value="${gioHang.maSP}">Delete</button>
+								</form>
+							</label>
+						</div>
 					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
+	<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var editButtons = document.querySelectorAll('.edit-button');
+        var saveButtons = document.querySelectorAll('.save-button');
+        var deleteButtons = document.querySelectorAll('.delete-button');
+
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var parentDiv = button.closest('.horizontal-label');
+                var saveButton = parentDiv.querySelector('.save-button');
+                var deleteButton = parentDiv.querySelector('.delete-button');
+
+                button.style.display = 'none';
+                saveButton.style.display = 'inline-block';
+                deleteButton.style.display = 'none';
+            });
+        });
+
+        saveButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var parentDiv = button.closest('.horizontal-label');
+                var editButton = parentDiv.querySelector('.edit-button');
+                var deleteButton = parentDiv.querySelector('.delete-button');
+
+                button.style.display = 'none';
+                editButton.style.display = 'inline-block';
+                deleteButton.style.display = 'inline-block';
+            });
+        });
+    });
+	</script>
+	<script>
+	    function submitForm() {
+	        var form = document.getElementById('updateForm');
+	        form.submit();
+	    }
+	</script>
 	<jsp:include page="./footer.jsp"></jsp:include>
 </body>
 </html>

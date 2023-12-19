@@ -9,7 +9,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
 footer {
-	margin-top:24%;
+	margin-top:5px;
 	background-color: #081C15;
 }
 
