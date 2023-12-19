@@ -3,6 +3,7 @@ package DAO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ public class SanPhamDAO {
 	private static final String SELECT_ANH_BYMaSP = "SELECT HinhAnh FROM sanpham WHERE MaSP = ?";
 	private static final String INSERT_SANPHAM_SQL = "INSERT INTO sanpham" +
 	        "  (MaSP, TenSP, MaLoaiSP, SoLuong, DonViTinh, Gia, HinhAnh, MaGG, MaNCC) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
 	private static final String DELETE_SANPHAM_BYMaSP = "DELETE FROM sanpham WHERE MaSP = ?;";
 	private static final String UPDATE_SANPHAM = "UPDATE sanpham SET TenSP = ?, MaLoaiSP = ?, SoLuong =?, DonViTinh =?, Gia = ?, HinhAnh = ?, MaGG = ?, MaNCC = ? WHERE MaSP = ?;";
 	
@@ -156,6 +158,31 @@ public class SanPhamDAO {
         }
 	}
 	
+
+	public List<SANPHAM> getAllSP() {
+        List<SANPHAM> sanphams = new ArrayList<>();
+        Connection conn = JDBC.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(SELECT_SANPHAM);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SANPHAM sanpham = new SANPHAM();
+                sanpham.setTenSP(rs.getString("TenSP"));
+                sanpham.setGia(rs.getInt("Gia"));
+                Blob blob = rs.getBlob("HinhAnh");
+                byte[] hinhAnh = blob.getBytes(1, (int) blob.length());
+                sanpham.setHinhAnh(hinhAnh);
+                
+                sanphams.add(sanpham);                
+            }
+        } catch (SQLException e) {
+            HandleException.printSQLException(e);
+        } finally {
+            JDBC.closeConnection(conn);
+        }
+        return sanphams;
+    }
+
 	public boolean deleteSP(String MaSP) throws SQLException {
 		boolean rowDeleted;
         try (Connection connection = JDBC.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_SANPHAM_BYMaSP);) {
@@ -182,4 +209,5 @@ public class SanPhamDAO {
         }
         return rowUpdated;
 	}
+
 }
