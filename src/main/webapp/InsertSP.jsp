@@ -89,7 +89,7 @@
 					
 					<div class="col-lg-5 d-flex justify-content-center" style="height: 200px; margin-left:10px; margin-top:10px;'">
 						<input type="file" name="hinhAnh" accept="image/jpeg, image/png"><br>
-       					<img id="preview" style="max-width: 200px; max-height: 200px;"><br>
+       					<img id="preview" style="max-width: 560px; max-height: 560px;"><br>
 					</div>
 				</div>
 				</form>
@@ -97,47 +97,10 @@
 		</div>
 	</div>
 	<script>
-    document.querySelector('input[name="hinhAnh"]').addEventListener('change', function(event) {
-        const input = event.target;
-        const preview = document.getElementById('preview');
-
-        const file = input.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const img = new Image();
-                img.src = e.target.result;
-
-                img.onload = function() {
-                    const maxWidth = 400; 
-                    const maxHeight = 400;
-
-                    let width = img.width;
-                    let height = img.height;
-                    if (width > maxWidth || height > maxHeight) {
-                        const ratio = Math.min(maxWidth / width, maxHeight / height);
-
-                        width *= ratio;
-                        height *= ratio;
-                    }
-
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-
-                    canvas.width = width;
-                    canvas.height = height;
-
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    preview.src = canvas.toDataURL('image/jpeg'); 
-                };
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
+	 document.querySelector('input[name="hinhAnh"]').addEventListener('change', function(event) {
+         const preview = document.getElementById('preview');
+         preview.src = URL.createObjectURL(event.target.files[0]);
+     });
 </script>
 
 	<jsp:include page="./footerAdmin.jsp"></jsp:include>

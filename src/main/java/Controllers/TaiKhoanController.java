@@ -20,7 +20,7 @@ import Models.TAIKHOAN;
 /**
  * Servlet implementation class TaiKhoanController
  */
-@WebServlet("/taikhoan")
+@WebServlet("/taikhoan/*")
 public class TaiKhoanController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private TaiKhoanDAO taikhoanDAO;
@@ -30,6 +30,7 @@ public class TaiKhoanController extends HttpServlet {
      */
     public TaiKhoanController() {
         super();
+        taikhoanDAO = new TaiKhoanDAO();
         // TODO Auto-generated constructor stub
     }
 
@@ -38,6 +39,7 @@ public class TaiKhoanController extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+		taikhoanDAO = new TaiKhoanDAO();
 	}
 	
 	public void init() {
