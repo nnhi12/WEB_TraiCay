@@ -30,18 +30,24 @@
            
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
 </head>
 
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+    <jsp:include page="./headerAdmin.jsp"></jsp:include>
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+         
+            <div class="col-md-3">
+				<jsp:include page="./linklistAdmin.jsp"></jsp:include>
+			</div>
+			<div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <div class="invoice-title">                            
                             <div class="mb-4">
+                           
                                 <h2 class="mb-1 ">CHI TIẾT ĐƠN HÀNG</h2>
                             </div>
                            
@@ -111,7 +117,8 @@
                             </div>                          
                         </div>
                     </div>
-                </div>
+                    </div>
+                
             </div>
         </div>
     </div>
@@ -121,6 +128,7 @@
     <script type="text/javascript">
 
     </script>
+    <jsp:include page="./footerAdmin.jsp"></jsp:include>
 </body>
 
 </html>
