@@ -23,7 +23,6 @@
 		            <th>Tên khách hàng</th>
 		            <th>Số điện thoại</th>
 		            <th>Chi tiết</th>
-		            <th></th>
 		          </tr>
 		        </thead>
 		        <tbody>
