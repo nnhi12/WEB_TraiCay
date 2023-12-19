@@ -17,8 +17,8 @@
 	<jsp:include page="./header.jsp"></jsp:include>
 	
 	<section class = "mt-25">
-	<form action = "chitietsp" method = "post">
 		<div class = "container">
+		<form action = "<%=request.getContextPath()%>/giohang/insert" method = "post">
 			<div class="row">
 				<div class="col-md-5">
 					<div class="card">
@@ -31,6 +31,7 @@
 					</div>
 				</div>
 				<div class="col-md-7">
+					
 					<table>
 						<tbody>
 							<tr>
@@ -46,7 +47,7 @@
 									<h2>Số lượng:</h2>
 								</td>
 								<td> 
-									<input type="number" min="0" max="100" step="1" value="0" class="numeric-up-down">
+									<input type="number" min="0" max="${sanpham.soLuong}" value = "0" step="1" class="numeric-up-down" id = "soluong" name = "soluong">
 								</td>
 							</tr>
 							<tr>
@@ -61,17 +62,15 @@
 								<td>
 									<button type = "submit" class = "btn btn-success">Thêm vào giỏ hàng</button>
 								</td>
-								<td>
-									<button type = "submit" class = "btn btn-success">Mua ngay</button>
-								</td>
 							</tr>
 						</tbody>
-						
 					</table>
+					
 				</div>
 			</div>
+			</form>
 		</div>
-	</form>
+		
 	</section>
 
 	<section class="mt-25">
