@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +15,8 @@ import Util.JDBC;
 
 public class GiamGiaDAO {
 	private static final String SELECT_GiamGia = "SELECT * FROM giamgia";
-	private static final String INSERT_GianGia = "INSERT INTO giamgia"+"(MaGG,GiaTri,NgayHetHan) Value"+"(?,?,?);";
-	private static final String SELECT_GG_By_ID = "SELECT GiaTri,NgayHetHan  FROM giamgia WHERE MaGG =?;";
+	private static final String INSERT_GiamGia = "INSERT INTO giamgia"+"(MaGG,GiaTri,NgayHetHan) Value"+"(?,?,?);";
+	private static final String SELECT_GG_By_ID = "SELECT MaGG, GiaTri,NgayHetHan  FROM giamgia WHERE MaGG =?;";
 	private static final String DELETE_GiamGia = "DELETE from giamgia where MaGG =?;";
 	private static final String UPDATE_GiamGia  ="UPDATE giamgia set GiaTri=?,NgayHetHan=? WHERE MaGG =?";
 	public GiamGiaDAO() {}
@@ -40,13 +41,15 @@ public class GiamGiaDAO {
 		return GGs;
 	}
 	public void insertGiamgia(GIAMGIA giamgia)  throws SQLException 
-	{
+	{		 System.out.println(INSERT_GiamGia);
+		
 		 try (
 			 Connection connection = JDBC.getConnection(); 
-			 PreparedStatement state = connection.prepareStatement(INSERT_GianGia)) {
+			 PreparedStatement state = connection.prepareStatement(INSERT_GiamGia)) {
 			 state.setString(1, giamgia.getMaGG());
 			 state.setInt(2, giamgia.getGiaTri());
-			 state.setDate(3,JDBC.getSQLDate( giamgia.getNgayHetHan()));
+			 state.setDate(3,giamgia.getNgayHetHan()!=null? Date.valueOf(giamgia.getNgayHetHan()):null);
+			 System.out.println(state);
 			 state.executeUpdate();
 	        } catch (SQLException exception) {
 	            HandleException.printSQLException(exception);
@@ -57,8 +60,10 @@ public class GiamGiaDAO {
 	        try (
         		Connection connection = JDBC.getConnection();
 	            PreparedStatement state = connection.prepareStatement(SELECT_GG_By_ID);) {
-	        	state.setString(1, MaGG);	        
-	            ResultSet rs = state.executeQuery();         
+	        	state.setString(1, MaGG); 
+	        	System.out.println(state);	        
+	            ResultSet rs = state.executeQuery();   
+	           
 	            while (rs.next()) {
 	             
 	                String magg = rs.getString("MaGG");
@@ -83,14 +88,15 @@ public class GiamGiaDAO {
 	        }
 	        return rowDeleted;
 	    }
-	 public boolean updateTodo(GIAMGIA giamgia) throws SQLException {
+	 public boolean updateGiamgia(GIAMGIA giamgia) throws SQLException {
 	        boolean rowUpdated;
 	        try (
         		Connection connection = JDBC.getConnection(); 
         		PreparedStatement statement = connection.prepareStatement(UPDATE_GiamGia);) {
 	        	statement.setInt(1, giamgia.getGiaTri());
-	        	statement.setDate(2, JDBC.getSQLDate(giamgia.getNgayHetHan()));
+	        	statement.setDate(2, giamgia.getNgayHetHan()!=null? Date.valueOf(giamgia.getNgayHetHan()):null);
 	        	statement.setString(3, giamgia.getMaGG());
+	        	System.out.println(statement);	 
 	            rowUpdated = statement.executeUpdate() > 0;
 	        }
 	        return rowUpdated;

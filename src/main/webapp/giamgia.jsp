@@ -22,7 +22,7 @@
 				<jsp:include page="./linklistAdmin.jsp"></jsp:include>
 			</div>
 			<div class="col-md-9">
-			<button type="submit" class="btn btn-primary" onclick="window.location.href='<%=request.getContextPath()%>/TaiKhoan/new'">Insert</button>
+			<button type="submit" class="btn btn-primary" onclick="window.location.href='<%=request.getContextPath()%>/giamgia/newgg'">Insert</button>
 				<table class="table table-bordered" style = "margin-top:10px;">
 		        <thead>
 		          <tr>
@@ -38,8 +38,9 @@
 		              <td><c:out value="${gg.maGG}" /></td>
 		              <td><c:out value="${gg.giaTri}" /></td>
 		              <td><c:out value="${gg.ngayHetHan}" /></td>   
-		              <td><a href="edit?id=<c:out value='${gg.maGG}' />"> <i class="material-icons" data-toggle="tooltip" title="Add" style="font-color: #F49608">add</i></a>
-		              <a href="delete?id=<c:out value='${gg.maGG}' />"><i class="material-icons" data-toggle="tooltip" title="Delete" style="font-color: #D80404">delete</i></a></td>
+		              <td><a href="editgg?magiamgia=${gg.maGG}"> <i class="material-icons" data-toggle="tooltip" title="Edit" style="font-color: #F49608">edit</i></a>
+		              <a href="deletegg?magiamgia=${gg.maGG}"><i class="material-icons" data-toggle="tooltip" title="Delete" style="font-color: #D80404">delete</i></a>		         
+		              </td>
 		            </tr>
 		            </c:forEach>
 		        </tbody>
