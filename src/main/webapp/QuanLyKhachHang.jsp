@@ -26,14 +26,14 @@
 		          </tr>
 		        </thead>
 		        <tbody>
-		           	<c:forEach var="listKH" items="${listKH}">
+		           	<c:forEach var="KH" items="${listKH}">
 		            <tr>
-		              <td><c:out value="${listKH.maKH}" /></td>
-		              <td><c:out value="${listKH.hoTen}" /></td>
-		              <td><c:out value="${listKH.sDT}" /></td>
+		              <td><c:out value="${KH.maKH}" /></td>
+		              <td><c:out value="${KH.hoTen}" /></td>
+		              <td><c:out value="${KH.sDT}" /></td>
 		              <td>
 		              	<form action="showinfo" method="post">
-		              		<input type="hidden" id="makh" name="makh" value="${listKH.maKH}">
+		              		<input type="hidden" id="makh" name="makh" value="${KH.maKH}">
 		              		<button type="submit"
 		              			onmouseover="this.style.color='red'"
 								onmouseout="this.style.color='blue'"
