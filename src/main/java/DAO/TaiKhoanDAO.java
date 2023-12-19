@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import Models.LOAISP;
 import Models.TAIKHOAN;
 import Util.HandleException;
 import Util.JDBC;

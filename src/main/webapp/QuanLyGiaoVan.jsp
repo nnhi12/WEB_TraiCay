@@ -23,7 +23,6 @@
 		            <th>Mã hóa đơn</th>
 		            <th>Tình trạng</th>
 		            <th>Chi tiết</th>
-		            <th></th>
 		          </tr>
 		        </thead>
 		        <tbody>
