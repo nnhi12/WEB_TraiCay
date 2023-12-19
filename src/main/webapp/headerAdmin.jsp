@@ -15,8 +15,8 @@
 	  <div class="container-fluid">
 	    <p class="navbar-brand">13Fruits</p>
 	    <div class="collapse navbar-collapse" id="navbarNav">
-          <a class="nav-link" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="#">Đăng xuất</a>
+          <a class="nav-link" aria-current="page" href="<%=request.getContextPath()%>/TrangChuAdminController">Home</a>
+          <a class="nav-link" href="<%=request.getContextPath()%>/logout">Đăng xuất</a>
           <a class="nav-link disable" aria-disabled="true">ADMIN</a>
 	    </div>
 	  </div>

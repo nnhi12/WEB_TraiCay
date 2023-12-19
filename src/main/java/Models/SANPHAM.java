@@ -15,6 +15,19 @@ public class SANPHAM {
 		super();
 	}
 	
+	public SANPHAM(String maSP, String tenSP, String maLoaiSP, int soLuong, String donViTinh, float gia, String maGG,
+			String maNCC) {
+		super();
+		this.maSP = maSP;
+		this.tenSP = tenSP;
+		this.maLoaiSP = maLoaiSP;
+		this.soLuong = soLuong;
+		this.donViTinh = donViTinh;
+		this.gia = gia;
+		this.maGG = maGG;
+		this.maNCC = maNCC;
+	}
+
 	public SANPHAM(String maSP, String tenSP, int soLuong, String donViTinh, float gia) {
 		super();
 		this.maSP = maSP;

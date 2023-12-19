@@ -220,7 +220,7 @@
 	        <div class="col-md-6">
 	          <div class="box">
 	            <div class="img-box">
-	              <img src="images/chomchom.PNG" alt="">
+	              <img src="images/chomchom.PNG">
 	            </div>
 	            <div class="detail-box">
 	              <h5>
