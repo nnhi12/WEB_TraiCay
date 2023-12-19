@@ -42,7 +42,7 @@ public class LoadDataInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<GIAMGIA> listGG;
 		try {
-			listGG = ggDAO.selectGG();
+			listGG = ggDAO.selectallgiamgia();
 			List <NHACUNGCAP> listNCC = nccDAO.selectNCC();
 			List <LOAISP> listLSP = lspDAO.selectLSP();
 			

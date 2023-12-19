@@ -2,6 +2,7 @@ package Controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -37,6 +38,18 @@ public class GioHangController extends HttpServlet {
         //if (IDDangNhap != null) {
         	request.setCharacterEncoding("UTF-8");
             try {
+            	if (action.equals("/load"))
+        		{
+            		String maKH = "KH001";
+			        List <GIOHANG> listGH = ghDAO.layGH(maKH);
+			        List <String> listTen = ghDAO.layTenSP_TheoKH(maKH);
+			        List <Float> listGia = ghDAO.layGiaSP_TheoKH(maKH);
+			        request.setAttribute("listGH", listGH);
+			        request.setAttribute("listTen", listTen);
+			        request.setAttribute("listGia", listGia);
+			        RequestDispatcher dispatcher = request.getRequestDispatcher("/GioHang.jsp");
+			        dispatcher.forward(request, response);
+        		}
             	if (action.equals("/insert"))
         		{
 	        		String maSP = "SP001";
@@ -51,13 +64,13 @@ public class GioHangController extends HttpServlet {
 	
 	                ghDAO.insertGH(gh);
 	                
-	                RequestDispatcher dispatcher = request.getRequestDispatcher("/chitietsp");
+	                RequestDispatcher dispatcher = request.getRequestDispatcher("/giohang/load");
             		request.setAttribute("giohang", gh);
             		dispatcher.forward(request, response);
         		}
         		if (action.equals("/update"))
         		{
-        			String maSP = "SP001";
+        			 String maSP = request.getParameter("masp");
 	                String maKH = "KH001";
 	
 	                String soluongParam = request.getParameter("soluong");
@@ -74,9 +87,21 @@ public class GioHangController extends HttpServlet {
 	
 	                ghDAO.updateGH(gh);
 	                
-                	RequestDispatcher dispatcher = request.getRequestDispatcher("GioHang.jsp");
-            		request.setAttribute("giohang", gh);
-            		dispatcher.forward(request, response);
+	                response.sendRedirect(request.getContextPath()+"/giohang/load");
+        		}
+        		
+        		if (action.equals("/delete"))
+        		{
+	                String maKH = "KH001";
+	                String maSP = request.getParameter("masp");
+	                
+	                GIOHANG gh = new GIOHANG();
+	                gh.setMaKH(maKH);
+	                gh.setMaSP(maSP);
+	                
+	                ghDAO.deleteGH(gh);
+	                
+	                response.sendRedirect(request.getContextPath()+"/giohang/load");
         		}
             } catch (SQLException e) {
                 e.printStackTrace();
