@@ -3,7 +3,6 @@ package DAO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -159,31 +158,6 @@ public class SanPhamDAO {
             HandleException.printSQLException(exception);
         }
 	}
-
-	public List<SANPHAM> getAllSP() {
-        List<SANPHAM> sanphams = new ArrayList<>();
-        Connection conn = JDBC.getConnection();
-        try {
-            PreparedStatement ps = conn.prepareStatement(SELECT_SANPHAM);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                SANPHAM sanpham = new SANPHAM();
-                sanpham.setMaSP(rs.getString("MaSP"));
-                sanpham.setTenSP(rs.getString("TenSP"));
-                sanpham.setGia(rs.getInt("Gia"));
-                Blob blob = rs.getBlob("HinhAnh");
-                byte[] hinhAnh = blob.getBytes(1, (int) blob.length());
-                sanpham.setHinhAnh(hinhAnh);
-                
-                sanphams.add(sanpham);                
-            }
-        } catch (SQLException e) {
-            HandleException.printSQLException(e);
-        } finally {
-            JDBC.closeConnection(conn);
-        }
-        return sanphams;
-    }
 
 	public boolean deleteSP(String MaSP) throws SQLException {
 		boolean rowDeleted;
