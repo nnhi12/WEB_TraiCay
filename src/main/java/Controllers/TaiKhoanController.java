@@ -96,7 +96,7 @@ public class TaiKhoanController extends HttpServlet {
             {                
                 response.sendRedirect(request.getContextPath() + "/Sanpham/ListSP");
             }
-            else if (taikhoan.getPhanQuyen().equals("Admin")) {
+            else if (taikhoan.getPhanQuyen().equals("QuanLy")) {
                 response.sendRedirect(request.getContextPath() + "/TrangChuAdminController"); }
         }
         else {
