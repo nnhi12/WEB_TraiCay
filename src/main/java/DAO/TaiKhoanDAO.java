@@ -99,5 +99,33 @@ public class TaiKhoanDAO {
 	        return taikhoan;
 	    }
 	   
+	   public String findNextMaTK() {
+		    String sql = "SELECT MAX(MaTaiKhoan) FROM taikhoan";
+		    String nextMaTK = "TK001";
+
+		    try {
+		    	Connection connection = JDBC.getConnection();
+		        PreparedStatement pstmt = connection.prepareStatement(sql);
+		        ResultSet rs = pstmt.executeQuery();
+
+		        if (rs.next()) {
+		            nextMaTK = rs.getString(1);
+		        }
+		        
+		        if (nextMaTK == null) {
+		        	return "TK001";
+		        }
+
+		        rs.close();
+		        pstmt.close();
+
+		    } catch (SQLException e) {
+		        System.out.println("Error: " + e);
+		    }
+
+		    int number = Integer.parseInt(nextMaTK.substring(2)) + 1;
+		    String numberStr = String.format("%03d", number);
+		    return "TK" + numberStr;
+		}
 	  
 }
