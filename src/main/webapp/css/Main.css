@@ -101,7 +101,7 @@ section{
 }
 
 .top-bar {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -185,7 +185,7 @@ section{
     min-height: 80vh;
     margin-top: 65px;
     background-size: cover;
-    background: url(../images/background.jpg) no-repeat;
+    background: url(../images/background2.jpg) no-repeat;
     background-position: center;
 }
 
