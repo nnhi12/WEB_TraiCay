@@ -2,6 +2,7 @@ package Controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -31,11 +32,15 @@ public class ChiTietSPController extends HttpServlet {
 		HttpSession session = request.getSession();
         String action = request.getPathInfo();
 		System.out.println("action error :"+ action );
+		String maSP = request.getParameter("maSP");
+        System.out.println(maSP);
 		try {
-			String maSP = "SP001";
 			SANPHAM sp = spDAO.layThongTinSP(maSP);
+			byte[] hinhAnh = spDAO.layDuLieuAnh(maSP);
+			String base64Image = Base64.getEncoder().encodeToString(hinhAnh);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/ChiTietSP.jsp");
     		request.setAttribute("sanpham", sp);
+    		request.setAttribute("base64Image", base64Image);
     		System.out.println(sp.getTenSP());
             dispatcher.forward(request, response);
 		} catch (SQLException e) {

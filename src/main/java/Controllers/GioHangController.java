@@ -2,6 +2,8 @@ package Controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,12 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.GioHangDAO;
+import DAO.SanPhamDAO;
 import Models.GIOHANG;
 
 @WebServlet("/giohang/*")
 public class GioHangController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private GioHangDAO ghDAO;
+	private SanPhamDAO spDAO;
 	
     public GioHangController() {
         super();
@@ -27,6 +31,7 @@ public class GioHangController extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 		ghDAO = new GioHangDAO();
+		spDAO = new SanPhamDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,15 +49,26 @@ public class GioHangController extends HttpServlet {
 			        List <GIOHANG> listGH = ghDAO.layGH(maKH);
 			        List <String> listTen = ghDAO.layTenSP_TheoKH(maKH);
 			        List <Float> listGia = ghDAO.layGiaSP_TheoKH(maKH);
+			        List<String> maSP = new ArrayList<>();
+			        List<String> dsAnh = new ArrayList<>();
+			        
+			        for (GIOHANG gioHang : listGH) {
+			            String masp = gioHang.getMaSP();
+			            byte[] hinhAnh = spDAO.layDuLieuAnh(masp);
+			            String base64Image = Base64.getEncoder().encodeToString(hinhAnh);
+			            maSP.add(masp);
+			            dsAnh.add(base64Image);
+			        }
 			        request.setAttribute("listGH", listGH);
 			        request.setAttribute("listTen", listTen);
 			        request.setAttribute("listGia", listGia);
+            		request.setAttribute("base64Image", dsAnh);
 			        RequestDispatcher dispatcher = request.getRequestDispatcher("/GioHang.jsp");
 			        dispatcher.forward(request, response);
         		}
             	if (action.equals("/insert"))
         		{
-	        		String maSP = "SP001";
+            		String maSP = request.getParameter("maSP");
 	                String maKH = "KH001";
 	                String soluongStr = request.getParameter("soluong");
 	                System.out.println(soluongStr);
@@ -65,6 +81,7 @@ public class GioHangController extends HttpServlet {
 	                ghDAO.insertGH(gh);
 	                
 	                RequestDispatcher dispatcher = request.getRequestDispatcher("/giohang/load");
+	               
             		request.setAttribute("giohang", gh);
             		dispatcher.forward(request, response);
         		}

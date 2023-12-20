@@ -24,7 +24,7 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="card-img-actions img-book">
-								<img src="assets/contain_straw.jpg" class="card-img img-fluid"
+								<img src="data:image/jpeg;base64,${base64Image}" class="card-img img-fluid"
 									alt="">
 							</div>
 						</div>
@@ -60,7 +60,7 @@
 							</tr>
 							<tr>
 								<td>
-									<button type = "submit" class = "btn btn-success">Thêm vào giỏ hàng</button>
+									<button type = "submit" class = "btn btn-success" id = "maSP" name = "maSP" value = "${sanpham.maSP}">Thêm vào giỏ hàng</button>
 								</td>
 							</tr>
 						</tbody>

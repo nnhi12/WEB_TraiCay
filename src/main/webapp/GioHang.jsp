@@ -29,13 +29,14 @@
 						<label for="id">Giỏ hàng của bạn</label>
 					</div>
 				</div>
+				<c:set var="tongTien" value="0" scope="page" />
+				<c:set var="selectedProducts" value="" scope="page" />
 				<c:forEach var="gioHang" items="${listGH}" varStatus="status">
 					<div class="row">
 						<div class="horizontal-label">
 							<label> 
-								
-								<input type="checkbox" style = "margin-right: 20px" value = "${gioHang.maSP}">
-								<img src="assets/contain_straw.jpg" alt="Image" class="label-image"> 
+								<input type="checkbox" id="maspCheckbox" style="margin-right: 20px" value="${gioHang.maSP}">
+								<img src="data:image/jpeg;base64,${base64Image[status.index]}" alt="Image" class="label-image"> 
 								<span class="label-text">
 									<a><p>${listTen[status.index]}</p>
 									<form id="updateForm" action="update" method="post">
@@ -57,6 +58,13 @@
 						</div>
 					</div>
 				</c:forEach>
+				<label for="tongTienLabel">Tổng số tiền: </label>
+				<span id="tongTienLabel">${tongTien}</span>
+				
+				<form id="paymentForm" action="dathang" method="post">
+				    <input type="hidden" name="selectedProducts" value="${selectedProducts}">
+				    <button class="btn-success" style="margin-top: 20px" onclick="goToPayment()">Thanh toán</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -96,6 +104,58 @@
 	        var form = document.getElementById('updateForm');
 	        form.submit();
 	    }
+	</script>
+	
+	<script>
+    function updateTotal(checkbox, gia) {
+        //float gia = ${listGia[status.index]};
+        //int soluong = ${gioHang.soLuong};
+        float tongTien = (float) document.getElementById("tongTienLabel").textContent;
+        
+        if (checkbox.checked) {
+            tongTien += gia;
+        } else {
+            tongTien -= gia;
+        }
+        
+        document.getElementById("tongTienLabel").textContent = tongTien.toFixed(2);
+    }
+    
+    function updateSelectedProducts(checkbox) {
+        var selectedProducts = "${selectedProducts}";
+        var maSP = checkbox.value;
+        
+        if (checkbox.checked) {
+            selectedProducts += maSP + ",";
+        } else {
+            selectedProducts = selectedProducts.replace(maSP + ",", "");
+        }
+        
+        document.getElementById("selectedProductsField").value = selectedProducts;
+        "${selectedProducts}" = selectedProducts;
+    }
+    
+    function goToPayment() {
+    	var checkboxes = document.querySelectorAll('#maspCheckbox:checked');
+        
+        // Tạo một mảng để lưu trữ các mã sản phẩm được chọn
+        var selectedProducts = [];
+        
+        // Lặp qua từng checkbox và thêm mã sản phẩm vào mảng
+        checkboxes.forEach(function(checkbox) {
+            selectedProducts.push(checkbox.value);
+        });
+        
+        // Gán danh sách masp đã được chọn vào input trong form thanh toán
+        var paymentForm = document.getElementById('paymentForm');
+        var selectedProductsInput = document.createElement('input');
+        selectedProductsInput.type = 'hidden';
+        selectedProductsInput.name = 'selectedProducts';
+        selectedProductsInput.value = selectedProducts.join(',');
+        paymentForm.appendChild(selectedProductsInput);
+        // Submit form thanh toán
+        document.getElementById("paymentForm").submit();
+    }
 	</script>
 	<jsp:include page="./footer.jsp"></jsp:include>
 </body>
