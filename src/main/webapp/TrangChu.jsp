@@ -49,8 +49,8 @@
                     <img src="data:image/jpeg;base64, ${sp.hinhAnh}" alt="">
                     <div class="icons">
                         <a href="#" class="fas fa-heart"></a>
-                        <a href="#" >Chi tiết</a> <!-- Chi tiết sản phẩm -->
-                    </div>
+                        <a href="<%=request.getContextPath()%>/chitietsp?maSP=<c:out value='${sp.maSP}' />" >Chi tiết</a> <!-- Chi tiết sản phẩm -->
+                    </div>	
                 </div>
 
                 <div class="content">

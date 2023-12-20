@@ -35,8 +35,8 @@
 					<div class="row">
 						<div class="horizontal-label">
 							<label> 
-								<input type="checkbox" style="margin-right: 20px" value="${listGia[status.index]}" onclick="updateTotal(this); updateSelectedProducts(this)">
-								<img src="assets/contain_straw.jpg" alt="Image" class="label-image"> 
+								<input type="checkbox" id="maspCheckbox" style="margin-right: 20px" value="${gioHang.maSP}">
+								<img src="data:image/jpeg;base64,${base64Image[status.index]}" alt="Image" class="label-image"> 
 								<span class="label-text">
 									<a><p>${listTen[status.index]}</p>
 									<form id="updateForm" action="update" method="post">
@@ -107,15 +107,15 @@
 	</script>
 	
 	<script>
-    function updateTotal(checkbox) {
-        float gia = ${listGia[status.index]};
-        int soluong = ${gioHang.soLuong};
-        float tongTien = 0;
+    function updateTotal(checkbox, gia) {
+        //float gia = ${listGia[status.index]};
+        //int soluong = ${gioHang.soLuong};
+        float tongTien = (float) document.getElementById("tongTienLabel").textContent;
         
         if (checkbox.checked) {
-            tongTien += gia * soluong;
+            tongTien += gia;
         } else {
-            tongTien -= gia * soluong;
+            tongTien -= gia;
         }
         
         document.getElementById("tongTienLabel").textContent = tongTien.toFixed(2);
@@ -136,6 +136,23 @@
     }
     
     function goToPayment() {
+    	var checkboxes = document.querySelectorAll('#maspCheckbox:checked');
+        
+        // Tạo một mảng để lưu trữ các mã sản phẩm được chọn
+        var selectedProducts = [];
+        
+        // Lặp qua từng checkbox và thêm mã sản phẩm vào mảng
+        checkboxes.forEach(function(checkbox) {
+            selectedProducts.push(checkbox.value);
+        });
+        
+        // Gán danh sách masp đã được chọn vào input trong form thanh toán
+        var paymentForm = document.getElementById('paymentForm');
+        var selectedProductsInput = document.createElement('input');
+        selectedProductsInput.type = 'hidden';
+        selectedProductsInput.name = 'selectedProducts';
+        selectedProductsInput.value = selectedProducts.join(',');
+        paymentForm.appendChild(selectedProductsInput);
         // Submit form thanh toán
         document.getElementById("paymentForm").submit();
     }

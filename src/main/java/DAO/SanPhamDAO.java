@@ -167,6 +167,7 @@ public class SanPhamDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SANPHAM sanpham = new SANPHAM();
+                sanpham.setMaSP(rs.getString("MaSP"));
                 sanpham.setTenSP(rs.getString("TenSP"));
                 sanpham.setGia(rs.getInt("Gia"));
                 Blob blob = rs.getBlob("HinhAnh");
