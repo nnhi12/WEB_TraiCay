@@ -16,32 +16,34 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <title>Đặt hàng</title>
-<style><%@include file="/css/giohang.css"%>
+<style>
+<%@include file="/css/giohang.css"%>
 <%@include file="/css/chitietsp.css"%></style>
 </head>
 <body>
 	<jsp:include page="./header.jsp"></jsp:include>
+	<form method="post" action="insert">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9">
-				<div class="row" style="margin-top: 2%">
+				<div class="row" style="margin-top: 5%">
 					<table>
 						<tr>
 							<td> Tên khách hàng: 
 							</td>
-							<td> <input type = "text">
+							<td> <input type = "text" value = "${khachhang.hoTen}">
 							</td>
 						</tr>
 						<tr>
 							<td> Số điện thoại: 
 							</td>
-							<td> <input type = "text">
+							<td> <input type = "text"  value = "${khachhang.sDT}">
 							</td>
 						</tr>
 						<tr>
 							<td> Địa chỉ: 
 							</td>
-							<td> <input type = "text">
+							<td> <input type = "text"  value = "${khachhang.diaChi}">
 							</td>
 						</tr>
 					</table>
@@ -50,25 +52,43 @@
 					<div class="row">
 						<div class="horizontal-label">
 							<label> 
-								
-								<input type="checkbox" style = "margin-right: 20px" value = "${gioHang.maSP}">
-								<img src="assets/contain_straw.jpg" alt="Image" class="label-image"> 
+								<img src="data:image/jpeg;base64,${base64Image[status.index]}" alt="Image" class="label-image"> 
 								<span class="label-text">
 									<a><p>${listTen[status.index]}</p>
-									<form id="updateForm" action="update" method="post">
-										<input type = "hidden"  id="masp" name="masp" value="${gioHang.maSP}">
 										<p>Số lượng: <input type="text" name="soluong" value="${gioHang.soLuong}"></p>
-									</form>
 										<p>Giá: ${listGia[status.index]}</p>
+										<p>Giá khi giảm: ${giagiam[status.index]}</p>
 									</a>
 								</span>
 							</label>
 						</div>
 					</div>
 				</c:forEach>
+				<div class="row" style="margin-top: 5%">
+					<table>
+						<tr>
+							<td> Phương thức thanh toán: 
+							</td>
+							<td>
+								<select name="paymentMethod">
+						            <option value="Momo">Momo</option>
+						            <option value="VNPay">VNPay</option>
+						            <option value="ZaloPay">ZaloPay</option>
+						        </select>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="row" style="margin-top: 3%; margin-bottom: 2%" >
+					 <span>Thành tiền: <input type="text" name="tongTien" value = "${tongtien}"></span>
+				</div>
+				<div class="row" style="margin-top: 3%; margin-bottom: 5%" >
+					 <button type = "submit" class = "btn1 btn-success">Xác nhận thanh toán</button>
+				</div>
 			</div>
 		</div>
 	</div>
+	</form>
 	
 	<jsp:include page="./footer.jsp"></jsp:include>
 </body>

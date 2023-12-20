@@ -34,7 +34,10 @@ public class ChiTietHoaDonDAO {
 				+ "inner join sanpham sp on cthd.MaSP = sp.MaSP\r\n"
 				+ "inner join khachhang kh on hd.MaKH = kh.MaKH\r\n"
 				+ "inner join giaovan gv on hd.MaHD = gv.MaHD\r\n"
-				+ "inner join giamgia gg on gg.MaGG = hd.MaGG  where cthd.MaHD =?;";	
+				+ "inner join giamgia gg on gg.MaGG = hd.MaGG  where cthd.MaHD =?;";
+		
+		private static final String INSERT_Chitiethoadon_SQL = "INSERT INTO chitiethoadon values (?, ?, ?, ?)";
+		
 		public List<CHITIETHOADON> selectallhoadon(String MaKH)
 		{			
 			List<CHITIETHOADON> cthd = new ArrayList<>();
@@ -111,5 +114,20 @@ public class ChiTietHoaDonDAO {
 		            HandleException.printSQLException(exception);
 		        }
 			return cthd;
+		}
+		
+		public void insertCTHD(CHITIETHOADON chitiet) throws SQLException {
+			System.out.println(INSERT_Chitiethoadon_SQL);
+	        // try-with-resource statement will auto close the connection.
+	        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_Chitiethoadon_SQL)) {
+	            preparedStatement.setString(1, chitiet.getMaHD());
+	            preparedStatement.setString(2, chitiet.getMaSP());
+	            preparedStatement.setInt(3, chitiet.getSoLuong());
+	            preparedStatement.setFloat(4, chitiet.getTongTien());
+	            System.out.println(preparedStatement);
+	            preparedStatement.executeUpdate();
+	        } catch (SQLException exception) {
+	            HandleException.printSQLException(exception);
+	        }
 		}
 }

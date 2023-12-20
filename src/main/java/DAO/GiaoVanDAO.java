@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.GIAOVAN;
+import Models.HOADON;
 import Util.HandleException;
 import Util.JDBC;
 
@@ -18,7 +19,7 @@ public class GiaoVanDAO {
 	private static final String SELECT_GIAOVAN = "SELECT * FROM giaovan WHERE MaGV = ?";
 	private static final String UPDATE_TINHTRANG_GIAOVAN = "UPDATE giaovan SET TinhTrang = ? WHERE MAGV = ?";
 	private static final String UPDATE_NGAYNHAN_GIAOVAN = "UPDATE giaovan SET NgayNhanHang = ?, TinhTrang = ? WHERE MAGV = ?";
-	
+  	private static final String INSERT_GIAOVAN_SQL = "INSERT INTO giaovan (MaGV, MaHD, TinhTrang) values (?, ?, ?)";
 	public GiaoVanDAO() {};
 	
 	public List<GIAOVAN> layAllGiaoVan(){
@@ -81,5 +82,48 @@ public class GiaoVanDAO {
 				HandleException.printSQLException(exception);
 			}
 		return true;
+	}
+	
+	public String findNextMaGV() {
+	    String sql = "SELECT MAX(MaGV) FROM giaovan";
+	    String nextMaGV = "GV001";
+
+	    try {
+	    	Connection connection = JDBC.getConnection();
+	        PreparedStatement pstmt = connection.prepareStatement(sql);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            nextMaGV = rs.getString(1);
+	        }
+	        
+	        if (nextMaGV == null) {
+	        	return "GV001";
+	        }
+
+	        rs.close();
+	        pstmt.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error: " + e);
+	    }
+
+	    int number = Integer.parseInt(nextMaGV.substring(2)) + 1;
+	    String numberStr = String.format("%03d", number);
+	    return "GV" + numberStr;
+	}
+	
+	public void insertGV(GIAOVAN gv) throws SQLException {
+		System.out.println(INSERT_GIAOVAN_SQL);
+        // try-with-resource statement will auto close the connection.
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_GIAOVAN_SQL)) {
+            preparedStatement.setString(1, gv.getMaGV());
+            preparedStatement.setString(2, gv.getMaHD());
+            preparedStatement.setString(3, gv.getTinhTrang());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            HandleException.printSQLException(exception);
+        }
 	}
 }

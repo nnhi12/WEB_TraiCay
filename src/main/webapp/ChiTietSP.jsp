@@ -60,7 +60,7 @@
 							</tr>
 							<tr>
 								<td>
-									<button type = "submit" class = "btn btn-success" id = "maSP" name = "maSP" value = "${sanpham.maSP}">Thêm vào giỏ hàng</button>
+									<button type = "submit" class = "btn1 btn-success" id = "maSP" name = "maSP" value = "${sanpham.maSP}">Thêm vào giỏ hàng</button>
 								</td>
 							</tr>
 						</tbody>

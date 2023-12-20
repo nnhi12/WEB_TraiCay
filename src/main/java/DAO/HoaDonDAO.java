@@ -11,6 +11,7 @@ import java.util.List;
 import java.time.LocalDate;
 
 import Models.HOADON;
+import Models.SANPHAM;
 import Models.CHITIETHOADON;
 import Models.GIAOVAN;
 import Models.GIAMGIA;
@@ -29,7 +30,13 @@ public class HoaDonDAO {
 				+ "inner join `dtdm`.giaovan gv on hd.MaHD = gv.MaHD\r\n"
 				+ "inner join `dtdm`.giamgia gg on gg.MaGG = hd.MaGG\r\n"
 				+ " where MaHD =?;";
-	
+  	private static final String TongTien = "SELECT SUM((COALESCE(S.Gia - (S.Gia * G.GiaTri / 100), S.Gia)) * GH.SoLuong) AS TongTien "
+  			+ "FROM giohang GH "
+  			+ "JOIN sanpham S ON GH.MaSP = S.MaSP "
+  			+ "LEFT JOIN giamgia G ON S.MaGG = G.MaGG "
+  			+ "WHERE GH.MaKH = ?;";
+  	
+  	private static final String INSERT_HOADON_SQL = "INSERT INTO hoadon values (?, ?, ?, ?, ?, ?, ?)";
 	public HoaDonDAO() {}
 	
 	public HOADON layHoaDon(String MaHD) {
@@ -69,5 +76,72 @@ public class HoaDonDAO {
 				HandleException.printSQLException(exception);
 			}
 		return chitiets;
+	}
+	
+	public float TongTienHD (String MaKH)
+	{
+		float tongtien = 0;
+        ResultSet rs = null;
+        
+        try (Connection connection = JDBC.getConnection();PreparedStatement preparedStatement = connection.prepareStatement(TongTien);)
+        {
+        	preparedStatement.setString(1, MaKH);
+        	rs = preparedStatement.executeQuery();
+        	while (rs.next()) {
+                tongtien = rs.getFloat("TongTien");
+            }
+            
+        } catch (SQLException exception) {
+            HandleException.printSQLException(exception);
+        }
+        return tongtien;
+	}
+	
+	public String findNextMaHD() {
+	    String sql = "SELECT MAX(MaHD) FROM hoadon";
+	    String nextMaHD = "HD001";
+
+	    try {
+	    	Connection connection = JDBC.getConnection();
+	        PreparedStatement pstmt = connection.prepareStatement(sql);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            nextMaHD = rs.getString(1);
+	        }
+	        
+	        if (nextMaHD == null) {
+	        	return "HD001";
+	        }
+
+	        rs.close();
+	        pstmt.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error: " + e);
+	    }
+
+	    int number = Integer.parseInt(nextMaHD.substring(2)) + 1;
+	    String numberStr = String.format("%03d", number);
+	    return "HD" + numberStr;
+	}
+	
+	public void insertSP(HOADON hd) throws SQLException {
+		System.out.println(INSERT_HOADON_SQL);
+        // try-with-resource statement will auto close the connection.
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_HOADON_SQL)) {
+            preparedStatement.setString(1, hd.getMaHD());
+            preparedStatement.setString(2, hd.getMaKH());
+            preparedStatement.setFloat(3, hd.getTongTien());
+            preparedStatement.setString(4, hd.getMaGG());
+            preparedStatement.setString(5, hd.getPhuongThucTT());
+            preparedStatement.setDate(6, hd.getNgayDatHang());
+            preparedStatement.setBoolean(7, hd.isTrangThai());
+            
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            HandleException.printSQLException(exception);
+        }
 	}
 }
