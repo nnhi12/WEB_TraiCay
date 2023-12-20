@@ -15,7 +15,7 @@ import Util.JDBC;
 public class KhachHangDAO {
 	private static final String SELECT_ALL_KHACHHANG = "SELECT * FROM khachhang";
 	private static final String SELECT_KHACHHANG = "SELECT * FROM khachhang WHERE MaKH = ?";
-	String SqlCreateKH = "INSERT INTO khachhang (MaKH, HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaTaiKhoan) VALUE (?,?,?,?,?,?,?)";
+	private static final String SqlCreateKH = "INSERT INTO khachhang (MaKH, HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaTaiKhoan) VALUE (?,?,?,?,?,?,?)";
 	private static final String LayMaKH ="SELECT MaKH FROM khachhang WHERE MaTaiKhoan = ?;";
 			
 	public KhachHangDAO() {}

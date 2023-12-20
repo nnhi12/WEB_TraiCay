@@ -37,7 +37,7 @@ public class TaiKhoanController extends HttpServlet {
 		String action  = request.getPathInfo(); 
         try {
             if (action.equals("/ThemTaiKhoan")) {
-                insertSinhvien(request, response);}
+                insertTK(request, response);}
             else if(action.equals("/Login")) {
             	login(request, response);
             }else{
@@ -54,7 +54,7 @@ public class TaiKhoanController extends HttpServlet {
 		doGet(request, response);
 	}
     
-    private void insertSinhvien(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    private void insertTK(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     	
         request.setCharacterEncoding("UTF-8");
         String MaTK = taikhoanDAO.findNextMaTK();

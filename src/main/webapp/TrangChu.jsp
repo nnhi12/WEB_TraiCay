@@ -18,6 +18,7 @@
 
 <body>	
   	<jsp:include page="./header.jsp"></jsp:include>
+  	
     <!--home-->
     <section id="home" class="home">
 	    <div class="content">	        
@@ -43,7 +44,7 @@
         <c:forEach items="${listSP}" var="sp">
             <div class="box">                
                 <div class="image">
-                    <img src="data:image/jpeg;base64, ${sp.hinhAnh}" alt="">
+                    <img src="data:image/jpeg;base64, ${sp.encodedHinhAnh}" alt="">
                     <div class="icons">
                         <a href="#" class="fas fa-heart"></a>
                         <a href="#" >Chi tiết</a> <!-- Chi tiết sản phẩm -->
