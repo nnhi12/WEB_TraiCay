@@ -1,6 +1,9 @@
 eclipse.preferences.version=1
 encoding//src/main/java/Controllers/GiamGiaController.java=UTF-8
 encoding//src/main/java/Controllers/GioHangController.java=UTF-8
+
+encoding//src/main/java/Controllers/TaiKhoanController.java=UTF-8
+
 encoding//src/main/webapp/QuanLyGiaoVan.jsp=UTF-8
 encoding//src/main/webapp/QuanLySanPham.jsp=UTF-8
 encoding//src/main/webapp/ThongTinDonHang.jsp=UTF-8

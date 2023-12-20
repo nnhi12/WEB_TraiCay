@@ -90,15 +90,15 @@ public class chitiethoadon extends HttpServlet {
 	        dispatcher.forward(request, response);
 	    }
 	 private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-			    throws SQLException, ServletException, IOException {
-			        String MaHD = request.getParameter("mahd");
-			        CHITIETHOADON GG = cthdDAO.selectchitiet(MaHD);
-			        System.out.println(MaHD);
-			        
-			        request.setAttribute("chitiet", GG);		      
-			        RequestDispatcher dispatcher = request.getRequestDispatcher("/chitiethoadon.jsp");        
-			        dispatcher.forward(request, response);
-			        
-			    }
+		    throws SQLException, ServletException, IOException {
+		        String MaHD = request.getParameter("mahd");
+		        CHITIETHOADON GG = cthdDAO.selectchitiet(MaHD);
+		        System.out.println(MaHD);
+		        
+		        request.setAttribute("chitiet", GG);		      
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/chitiethoadon.jsp");        
+		        dispatcher.forward(request, response);
+		        
+		    }
 
 }
