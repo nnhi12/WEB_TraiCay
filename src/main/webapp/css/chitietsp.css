@@ -18,7 +18,7 @@ footer {
 
 .text-muted{
 	color: black !important;
-	font-size: 15px !important;
+	font-size: 18px !important;
 }
 
 footer .nav  {
@@ -52,7 +52,7 @@ footer .nav  {
   height: 30% !important;
 }
 
-.btn {
+.btn1 {
   color: #000000;
   background-color: #47a77c !important;
   font-size: 16px;

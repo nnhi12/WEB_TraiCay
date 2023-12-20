@@ -36,6 +36,7 @@ public class GioHangController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		String maKH = (String) session.getAttribute("maKH");	
         //String IDDangNhap = (String) session.getAttribute("IDDangNhap");
         String action = request.getPathInfo();
 		System.out.println("action error :"+ action );
@@ -45,7 +46,6 @@ public class GioHangController extends HttpServlet {
             try {
             	if (action.equals("/load"))
         		{
-            		String maKH = "KH001";
 			        List <GIOHANG> listGH = ghDAO.layGH(maKH);
 			        List <String> listTen = ghDAO.layTenSP_TheoKH(maKH);
 			        List <Float> listGia = ghDAO.layGiaSP_TheoKH(maKH);
@@ -69,7 +69,6 @@ public class GioHangController extends HttpServlet {
             	if (action.equals("/insert"))
         		{
             		String maSP = request.getParameter("maSP");
-	                String maKH = "KH001";
 	                String soluongStr = request.getParameter("soluong");
 	                System.out.println(soluongStr);
 	                int soLuong = 0;
@@ -88,7 +87,6 @@ public class GioHangController extends HttpServlet {
         		if (action.equals("/update"))
         		{
         			 String maSP = request.getParameter("masp");
-	                String maKH = "KH001";
 	
 	                String soluongParam = request.getParameter("soluong");
 	                System.out.println(soluongParam);
@@ -109,7 +107,6 @@ public class GioHangController extends HttpServlet {
         		
         		if (action.equals("/delete"))
         		{
-	                String maKH = "KH001";
 	                String maSP = request.getParameter("masp");
 	                
 	                GIOHANG gh = new GIOHANG();

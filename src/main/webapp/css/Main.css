@@ -41,7 +41,7 @@ html{
 }
 
 .search-bar button i {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 section{
@@ -437,7 +437,7 @@ section{
 
 body {
     padding: 2%;
-    text-align: center;
+    text-align: left;
   }
   
 #slideshow {

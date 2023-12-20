@@ -28,6 +28,23 @@ public class SanPhamDAO {
 	private static final String UPDATE_SANPHAM = "UPDATE sanpham SET TenSP = ?, MaLoaiSP = ?, SoLuong =?, DonViTinh =?, Gia = ?, HinhAnh = ?, MaGG = ?, MaNCC = ? WHERE MaSP = ?;";
 	private static final String SELECT_LISTSP = "SELECT MaSP, TenSP, Gia, HinhAnh FROM sanpham";
 	
+	private static final String GiaDaGiam = "SELECT S.MaSP, COALESCE(S.Gia - (S.Gia * G.GiaTri / 100), S.Gia) AS GiaSauGiam "
+			+ "FROM sanpham S "
+			+ "LEFT JOIN giamgia G ON S.MaGG = G.MaGG "
+			+ "WHERE S.MaSP = ?;";
+	
+	private static final String Update_SL_Sau_ThanhToan = "UPDATE SANPHAM "
+			+ "SET SoLuong = SoLuong - ( "
+			+ "    SELECT SoLuong "
+			+ "    FROM GIOHANG "
+			+ "    WHERE GIOHANG.MaSP = SANPHAM.MaSP "
+			+ "      AND GIOHANG.MaKH = ? "
+			+ ") "
+			+ "WHERE MaSP IN ( "
+			+ "    SELECT MaSP "
+			+ "    FROM GIOHANG "
+			+ "    WHERE MaKH = ? "
+			+ ")";
 	public SanPhamDAO() {}
 	
 	public SANPHAM layThongTinSP(String MaSP) throws SQLException, IOException{
@@ -160,31 +177,6 @@ public class SanPhamDAO {
         }
 	}
 
-	public List<SANPHAM> getAllSP() {
-        List<SANPHAM> sanphams = new ArrayList<>();
-        Connection conn = JDBC.getConnection();
-        try {
-            PreparedStatement ps = conn.prepareStatement(SELECT_SANPHAM);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                SANPHAM sanpham = new SANPHAM();
-                sanpham.setMaSP(rs.getString("MaSP"));
-                sanpham.setTenSP(rs.getString("TenSP"));
-                sanpham.setGia(rs.getInt("Gia"));
-                Blob blob = rs.getBlob("HinhAnh");
-                byte[] hinhAnh = blob.getBytes(1, (int) blob.length());
-                sanpham.setHinhAnh(hinhAnh);
-                
-                sanphams.add(sanpham);                
-            }
-        } catch (SQLException e) {
-            HandleException.printSQLException(e);
-        } finally {
-            JDBC.closeConnection(conn);
-        }
-        return sanphams;
-    }
-
 	public boolean deleteSP(String MaSP) throws SQLException {
 		boolean rowDeleted;
         try (Connection connection = JDBC.getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_SANPHAM_BYMaSP);) {
@@ -246,4 +238,33 @@ public class SanPhamDAO {
         }
         return sanphams;
     }
+	
+	public float GiaSauGiam (String MaSP)
+	{
+		float giaSauGiam = 0;
+        ResultSet rs = null;
+        
+        try (Connection connection = JDBC.getConnection();PreparedStatement preparedStatement = connection.prepareStatement(GiaDaGiam);)
+        {
+        	preparedStatement.setString(1, MaSP);
+        	rs = preparedStatement.executeQuery();
+        	while (rs.next()) {
+                giaSauGiam = rs.getFloat("GiaSauGiam");
+            }
+            
+        } catch (SQLException exception) {
+            HandleException.printSQLException(exception);
+        }
+        return giaSauGiam;
+	}
+	
+	public void updateSLSP(String MaKH) throws SQLException {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement statement = connection.prepareStatement( Update_SL_Sau_ThanhToan );) {
+        	statement.setString(1, MaKH);
+        	statement.setString(2, MaKH);
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            HandleException.printSQLException(exception);
+        }
+	}
 }

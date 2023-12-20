@@ -22,6 +22,8 @@ public class GioHangDAO {
 	private static final String layGiaSPTrongGio = "SELECT Gia FROM giohang JOIN sanpham ON giohang.MaSP = sanpham.MaSP "
 			+ "WHERE giohang.MaKH = ?";
 	
+	private static final String XoaAllGioHang = "DELETE from giohang where MaKH = ?";
+	
 	public List<GIOHANG> layGH(String MaKH) throws SQLException {
 		System.out.println(layTatCaGio);
         // try-with-resource statement will auto close the connection.
@@ -123,6 +125,18 @@ public class GioHangDAO {
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(XoaGioHang)) {
             preparedStatement.setString(2, gh.getMaKH());
             preparedStatement.setString(1, gh.getMaSP());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            HandleException.printSQLException(exception);
+        }
+	}
+	
+	public void deleteAllGH(String MaKH) throws SQLException {
+		System.out.println(XoaAllGioHang);
+        // try-with-resource statement will auto close the connection.
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(XoaAllGioHang)) {
+            preparedStatement.setString(1, MaKH);
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
