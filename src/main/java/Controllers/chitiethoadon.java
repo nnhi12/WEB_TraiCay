@@ -81,8 +81,9 @@ public class chitiethoadon extends HttpServlet {
 	}
 	 private void listcthd(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, IOException, ServletException {
-	        //HttpSession session = request.getSession();
-	        List<CHITIETHOADON> listcthd = cthdDAO.selectallhoadon();
+			 HttpSession session = request.getSession();
+			 String maKH = (String) session.getAttribute("maKH");	 	
+	        List<CHITIETHOADON> listcthd = cthdDAO.selectallhoadon(maKH);
 	        request.setAttribute("listcthd",listcthd );
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/Listhoadon.jsp");
 	        System.out.println("nuuu");

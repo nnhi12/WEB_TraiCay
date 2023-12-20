@@ -17,6 +17,7 @@
 </head>
 
 <body>	
+
   	<jsp:include page="./header.jsp"></jsp:include>
     <!--home-->
     <section id="home" class="home">
