@@ -96,8 +96,8 @@ public class TaiKhoanController extends HttpServlet {
             {                
                 response.sendRedirect(request.getContextPath() + "/Sanpham/ListSP");
             }
-            else if (taikhoan.getPhanQuyen().equals("Admin")) {
-                response.sendRedirect(request.getContextPath() + "/ThongBao/list_ThongBaoGiangVienController"); }
+            else if (taikhoan.getPhanQuyen().equals("QuanLy")) {
+                response.sendRedirect(request.getContextPath() + "/TrangChuAdminController"); }
         }
         else {
             request.setAttribute("errMsg", "Thông tin đăng nhập không chính xác!");
