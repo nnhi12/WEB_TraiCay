@@ -5,20 +5,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+<%@include file="css/Main.css"%>
+</style>
 </head>
 
 <!-- HEADER -->
-<section>
-	<nav class="navbar navbar-expand-lg navbar-custom px-0 py-3">
-		<div class="container-xl">
-		  	<div class="collapse navbar-collapse" id="navbarCollapse">
-				<div class="navbar-nav ms-lg-0">
-  					<button class="btn btn-success" type="button" style="margin-left: 65px;">Người dùng</button>
-				</div>
-			</div>
-		</div>
-	</nav>
-</section>
+<div class="top-bar">
+      <a href="#" class="logo">13 Fruits<span></span></a>	
+	    <div class="icons">
+	        <a href="#" class="fas fa-truck"></a> <!-- Vận chuyển -->
+	        <a href="#" class="fas fa-shopping-cart"></a> <!-- Giỏ hàng -->
+	        <a href="#" class="fas fa-user"></a> <!-- Thông tin người dùng -->
+	        <a href="<%= request.getContextPath() %>/logout">Logout</a>
+	    </div>
+    </div>
 <!-- Header -->
 </html>
