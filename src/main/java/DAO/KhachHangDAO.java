@@ -95,4 +95,34 @@ public class KhachHangDAO {
 			}
 		return MaKH;
 	}
+	
+	public String findNextMaKH() {
+	    String sql = "SELECT MAX(MaKH) FROM khachhang";
+	    String nextMaKH = "KH001";
+
+	    try {
+	    	Connection connection = JDBC.getConnection();
+	        PreparedStatement pstmt = connection.prepareStatement(sql);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            nextMaKH = rs.getString(1);
+	        }
+	        
+	        if (nextMaKH == null) {
+	        	return "KH001";
+	        }
+
+	        rs.close();
+	        pstmt.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error: " + e);
+	    }
+
+	    int number = Integer.parseInt(nextMaKH.substring(2)) + 1;
+	    String numberStr = String.format("%03d", number);
+	    return "KH" + numberStr;
+	}
+
 }
