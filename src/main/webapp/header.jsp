@@ -15,9 +15,9 @@
 <div class="top-bar">
       <a href="#" class="logo">13 Fruits<span></span></a>	
 	    <div class="icons">
-	        <a href="#" class="fas fa-truck"></a> <!-- Vận chuyển -->
+	        <a href="<%= request.getContextPath()%>/chitiethoadon/listcthd" class="fas fa-truck"></a> <!-- Vận chuyển -->
 	        <a href="#" class="fas fa-shopping-cart"></a> <!-- Giỏ hàng -->
-	        <a href="#" class="fas fa-user"></a> <!-- Thông tin người dùng -->
+	        <a href="<%= request.getContextPath()%>/thongtinkhachhang/profile" class="fas fa-user"></a> <!-- Thông tin người dùng -->
 	        <a href="<%= request.getContextPath() %>/logout">Logout</a>
 	    </div>
     </div>

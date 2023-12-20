@@ -10,9 +10,30 @@ public class SANPHAM {
 	private byte[] hinhAnh;
 	private String maGG;
 	private String maNCC;
+	private String encodedHinhAnh;
 	
 	public SANPHAM() {
 		super();
+	}
+	
+	public SANPHAM(String maSP, String tenSP, float gia, String encodedHinhAnh) {
+		super();
+		this.maSP = maSP;
+		this.tenSP = tenSP;
+		this.gia = gia;
+		this.encodedHinhAnh = encodedHinhAnh;
+	}
+
+
+
+	public String getEncodedHinhAnh() {
+		return encodedHinhAnh;
+	}
+
+
+
+	public void setEncodedHinhAnh(String encodedHinhAnh) {
+		this.encodedHinhAnh = encodedHinhAnh;
 	}
 	
 	public SANPHAM(String maSP, String tenSP, String maLoaiSP, int soLuong, String donViTinh, float gia, String maGG,

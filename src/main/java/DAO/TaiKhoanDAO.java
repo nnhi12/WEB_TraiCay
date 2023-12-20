@@ -12,9 +12,9 @@ import Util.JDBC;
 
 public class TaiKhoanDAO {
 	private static final String SELECT_TAIKHOAN = "SELECT TaiKhoan, MatKhau FROM taikhoan WHERE MaTaiKhoan = ?";
-	String SqlCreateTK = "INSERT INTO taikhoan (MaTaiKhoan, TaiKhoan, MatKhau, PhanQuyen) VALUE (?,?,?,?)";
-	static String sqlLogin = "SELECT MaTaiKhoan FROM taikhoan WHERE TaiKhoan = ? and MatKhau = ?";
-    static String id = null;
+	private static final String SqlCreateTK = "INSERT INTO taikhoan (MaTaiKhoan, TaiKhoan, MatKhau, PhanQuyen) VALUE (?,?,?,?)";
+	private static final String sqlLogin = "SELECT MaTaiKhoan FROM taikhoan WHERE TaiKhoan = ? and MatKhau = ?";
+	static String id = null;
 	
 	public TaiKhoanDAO() {}
 	
