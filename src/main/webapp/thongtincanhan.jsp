@@ -64,7 +64,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(Name)">
+                                        <input type="text" border: none outline: none value="${khachhang.hoTen }">
                                     </td>
                                 </tr>
                                 <tr>
@@ -74,8 +74,8 @@
                                         </strong>
                                     </td>
                                     <td class=" text text-primary">                                      
-                                        <input type="radio" name="gender" value="male"> Nam                                       
-                                        <input type="radio" name="gender" value="female"> Nữ                                       
+                                        <input type="text" name="gender" value="${khachhang.gioiTinh}"> Nam                                       
+                                                                             
                                     </td>
                                 </tr>
                                 <tr>
@@ -85,7 +85,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(Số điện thoại)">
+                                        <input type="text" border: none outline: none value="${khachhang.sDT}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -95,7 +95,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(UserName)">
+                                        <input type="text" border: none outline: none value="${taikhoan.taiKhoan}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -117,7 +117,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="date" class ="custom-date-input" >
+                                        <input type="date" value='${khachhang.ngaySinh}' class ="custom-date-input" >
                                     </td>
                                 </tr>
                                 <tr>
@@ -128,7 +128,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(địa chỉ)">
+                                        <input type="text"  value="${khachhang.diaChi}" border: none outline: none>
                                     </td>
                                 </tr>
                             </tbody>

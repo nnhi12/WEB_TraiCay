@@ -15,7 +15,9 @@ import Util.JDBC;
 public class KhachHangDAO {
 	private static final String SELECT_ALL_KHACHHANG = "SELECT * FROM khachhang";
 	private static final String SELECT_KHACHHANG = "SELECT * FROM khachhang WHERE MaKH = ?";
-	String SqlCreateKH = "INSERT INTO khachhang (MaKH, HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaTaiKhoan) VALUE (?,?,?,?,?,?,?)";	
+	String SqlCreateKH = "INSERT INTO khachhang (MaKH, HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaTaiKhoan) VALUE (?,?,?,?,?,?,?)";
+	private static final String LayMaKH ="SELECT MaKH FROM khachhang WHERE MaTaiKhoan = ?;";
+			
 	public KhachHangDAO() {}
 	
 	public List<KHACHHANG> layAllThongTinKhachHang() {
@@ -79,4 +81,18 @@ public class KhachHangDAO {
 	            JDBC.closeConnection(conn);
 	        }
 	   }
+	public String layMaKH(String MaTK) {
+		String MaKH = null;
+		try (Connection connection = JDBC.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(LayMaKH)) {
+				preparedStatement.setString(1, MaTK);
+				ResultSet rs = preparedStatement.executeQuery();				
+				while (rs.next()) {
+					 MaKH = rs.getString("MaKH");
+				}
+			} catch (SQLException exception) {
+				HandleException.printSQLException(exception);
+			}
+		return MaKH;
+	}
 }

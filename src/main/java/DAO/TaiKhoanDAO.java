@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Models.KHACHHANG;
 import Models.TAIKHOAN;
 import Util.HandleException;
 import Util.JDBC;
@@ -97,4 +98,6 @@ public class TaiKhoanDAO {
 	        }
 	        return taikhoan;
 	    }
+	   
+	  
 }

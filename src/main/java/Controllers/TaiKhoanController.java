@@ -52,7 +52,7 @@ public class TaiKhoanController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String action  = request.getPathInfo(); // cách lấy đường dẫn con trong trường hợp servlet chia nhánh
+		String action  = request.getPathInfo(); // cĂ¡ch láº¥y Ä‘Æ°á»�ng dáº«n con trong trÆ°á»�ng há»£p servlet chia nhĂ¡nh
         try {
             if (action.equals("/ThemTaiKhoan")) {
                 insertSinhvien(request, response);}
@@ -79,25 +79,25 @@ public class TaiKhoanController extends HttpServlet {
 	public String MaTK() {
 	    String accountCode = "TK";
 
-	    // Sử dụng phương pháp tạo số ngẫu nhiên, ví dụ: Math.random()
+	    // Sá»­ dá»¥ng phÆ°Æ¡ng phĂ¡p táº¡o sá»‘ ngáº«u nhiĂªn, vĂ­ dá»¥: Math.random()
 	    int randomCode = (int)(Math.random() * 900) + 100;
 
-	    // Kết hợp phần số ngẫu nhiên vào mã tài khoản
+	    // Káº¿t há»£p pháº§n sá»‘ ngáº«u nhiĂªn vĂ o mĂ£ tĂ i khoáº£n
 	    accountCode += randomCode;
 
-	    // Trả về mã tài khoản
+	    // Tráº£ vá»� mĂ£ tĂ i khoáº£n
 	    return accountCode;
 	}
     public String MaKH() {
 	    String accountCode = "KH";
 
-	    // Sử dụng phương pháp tạo số ngẫu nhiên, ví dụ: Math.random()
+	    // Sá»­ dá»¥ng phÆ°Æ¡ng phĂ¡p táº¡o sá»‘ ngáº«u nhiĂªn, vĂ­ dá»¥: Math.random()
 	    int randomCode = (int)(Math.random() * 900) + 100;
 
-	    // Kết hợp phần số ngẫu nhiên vào mã tài khoản
+	    // Káº¿t há»£p pháº§n sá»‘ ngáº«u nhiĂªn vĂ o mĂ£ tĂ i khoáº£n
 	    accountCode += randomCode;
 
-	    // Trả về mã tài khoản
+	    // Tráº£ vá»� mĂ£ tĂ i khoáº£n
 	    return accountCode;
 	}
     
@@ -122,7 +122,8 @@ public class TaiKhoanController extends HttpServlet {
     }
     
     private void login(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        String TenDangNhap = request.getParameter("TaiKhoan");
+    	request.setCharacterEncoding("UTF-8");
+    	String TenDangNhap = request.getParameter("TaiKhoan");
         String Password = request.getParameter("MatKhau");
         TAIKHOAN taikhoan = new TAIKHOAN();
         taikhoan.setTaiKhoan(TenDangNhap);
@@ -141,7 +142,7 @@ public class TaiKhoanController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/ThongBao/list_ThongBaoGiangVienController"); }
         }
         else {
-            request.setAttribute("errMsg", "Thông tin đăng nhập không chính xác");
+            request.setAttribute("errMsg", "Thông tin đăng nhập không chính xác!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.jsp");
             try{
                 dispatcher.forward(request, response);
@@ -150,5 +151,5 @@ public class TaiKhoanController extends HttpServlet {
             }
         }
     }
-
+    
 }

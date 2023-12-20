@@ -27,7 +27,7 @@ public class ChiTietHoaDonDAO {
 				+ "inner join sanpham sp on cthd.MaSP = sp.MaSP\r\n"
 				+ "inner join khachhang kh on hd.MaKH = kh.MaKH\r\n"
 				+ "inner join giaovan gv on hd.MaHD = gv.MaHD\r\n"
-				+ "inner join giamgia gg on gg.MaGG = hd.MaGG ;";	
+				+ "inner join giamgia gg on gg.MaGG = hd.MaGG where kh.MaKH =?;";	
 		private String ChonHoaDonTheoMaHD = "SELECT * \r\n"
 				+ "from  chitiethoadon cthd\r\n"
 				+ "inner join hoadon hd on cthd.MaHD = hd.MaHD\r\n"
@@ -35,16 +35,16 @@ public class ChiTietHoaDonDAO {
 				+ "inner join khachhang kh on hd.MaKH = kh.MaKH\r\n"
 				+ "inner join giaovan gv on hd.MaHD = gv.MaHD\r\n"
 				+ "inner join giamgia gg on gg.MaGG = hd.MaGG  where cthd.MaHD =?;";	
-		public List<CHITIETHOADON> selectallhoadon()
-		{
-			
+		public List<CHITIETHOADON> selectallhoadon(String MaKH)
+		{			
 			List<CHITIETHOADON> cthd = new ArrayList<>();
 			Connection connection = JDBC.getConnection();
 			try (
-
-					PreparedStatement preparedStatement = connection.prepareStatement(ChonHoaDonTheoKH)) {
-					ResultSet rs = preparedStatement.executeQuery();
-					  System.out.println(preparedStatement);
+					PreparedStatement preparedStatement = connection.prepareStatement(ChonHoaDonTheoKH))
+					{
+						preparedStatement.setString(1, MaKH); 
+						ResultSet rs = preparedStatement.executeQuery();
+					    System.out.println(preparedStatement);
 					while (rs.next()) {
 						CHITIETHOADON chitiethd = new CHITIETHOADON();
 						chitiethd.setMaHD(rs.getString("MaHD"));
@@ -83,8 +83,7 @@ public class ChiTietHoaDonDAO {
 	            PreparedStatement state = connection.prepareStatement(ChonHoaDonTheoMaHD);) {
 	        	state.setString(1, MaHD); 
 	        	System.out.println(state);	        
-	            ResultSet rs = state.executeQuery();   
-		           
+	            ResultSet rs = state.executeQuery();           
 	            while (rs.next()) {
 	            	CHITIETHOADON chitiethd = new CHITIETHOADON();
 					chitiethd.setMaHD(rs.getString("MaHD"));
