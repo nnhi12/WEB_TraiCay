@@ -14,13 +14,16 @@
 <style><%@include file="/css/QLSP.css"%></style>
 </head>
 <body>
-	<jsp:include page="./headerAdmin.jsp"></jsp:include>
+<button class="btn btn-success" onclick="goBack()">Quay lại</button>
+	<script>
+	    function goBack() {
+	        window.history.back();
+	    }
+	</script>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
-				<jsp:include page="./linklistAdmin.jsp"></jsp:include>
-			</div>
-			<div class="col-md-9">
+		
+			<div class="col-md-12">
 				<table class="table table-bordered" style = "margin-top:10px;">
 		        <thead>
 		          <tr>		          	
@@ -65,5 +68,5 @@
 		</div>
 	</div>
 	
-	<jsp:include page="./footerAdmin.jsp"></jsp:include>
+	
 </body>

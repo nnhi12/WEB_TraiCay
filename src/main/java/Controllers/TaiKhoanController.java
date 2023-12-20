@@ -129,11 +129,16 @@ public class TaiKhoanController extends HttpServlet {
         taikhoan.setTaiKhoan(TenDangNhap);
         taikhoan.setMatKhau(Password);
         String matk = taikhoanDAO.LOGIN(TenDangNhap, Password);
+        
         if(matk != null)
         {
             taikhoan = taikhoanDAO.selectTaiKhoanByMaTK(matk);
             HttpSession session = request.getSession();
             session.setAttribute("matk", matk);
+            KhachHangDAO khachhangDAO = new KhachHangDAO();
+            String MaKH = khachhangDAO.layMaKH(matk);
+            HttpSession sessions = request.getSession();
+            sessions.setAttribute("maKH", MaKH);
             if(taikhoan.getPhanQuyen().equals("KhachHang"))
             {                
                 response.sendRedirect(request.getContextPath() + "/Sanpham/ListSP");
@@ -151,5 +156,4 @@ public class TaiKhoanController extends HttpServlet {
             }
         }
     }
-    
 }

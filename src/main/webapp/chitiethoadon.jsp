@@ -35,12 +35,15 @@
 </head>
 
 <body>
-    <jsp:include page="./headerAdmin.jsp"></jsp:include>
+<button class="btn btn-success" onclick="goBack()">Quay lại</button>
+	<script>
+	    function goBack() {
+	        window.history.back();
+	    }
+	</script>
     <div class="container">
-        <div class="row">
-         
-            <div class="col-md-3">
-				<jsp:include page="./linklistAdmin.jsp"></jsp:include>
+        <div class="row">   
+            <div class="col-md-3">				
 			</div>
 			<div class="col-md-9">
                 <div class="card">
@@ -112,7 +115,8 @@
                                                                                                                    
                                                 </div>
                                             </td>
-                                        </tr>                                                                        
+                                        </tr>                                    
+                                     
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">Thành Tiền :</th>
                                             <td class="border-0 text-end">

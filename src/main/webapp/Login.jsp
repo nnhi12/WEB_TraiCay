@@ -18,7 +18,7 @@
     <!-- Tabs Titles -->
     <h1>LOGIN</h1>
     <!-- Login Form -->
-    <form id="loginForm" method="post" action="" >
+    <form id="loginForm" method="post" action="<%= request.getContextPath() %>/taikhoan/Login" >
       <input type="text" id="TaiKhoan" class="fadeIn second" name="TaiKhoan" placeholder="Username">
       <input type="password" id="MatKhau" class="fadeIn second" name="MatKhau" placeholder="Password">
       <input type="submit" class="fadeIn fourth" value="Log In">      

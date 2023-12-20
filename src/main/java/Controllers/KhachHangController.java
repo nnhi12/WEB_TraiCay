@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import DAO.TaiKhoanDAO;
 import DAO.KhachHangDAO;
@@ -55,16 +56,7 @@ public class KhachHangController extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/ThongTinKhachHang.jsp");
 				dispatcher.forward(request, response);
 			}
-			if(action.contains("/showinfokhachhang")) {
-				String MaKH = request.getParameter("makh");
-				KHACHHANG kh = khdao.layThongTinKhachHang(MaKH);
-				String MaTK = kh.getMaTaiKhoan();
-				TAIKHOAN tk = tkdao.layThongTinTaiKhoang(MaTK);
-				request.setAttribute("khachhang", kh);
-				request.setAttribute("taikhoan", tk);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/thongtincanhan.jsp");
-				dispatcher.forward(request, response);
-			}
+			
         } catch (Exception ex) {
             throw new ServletException(ex);
         }

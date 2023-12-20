@@ -32,14 +32,17 @@
 </head>
 
 <body>
-<jsp:include page="./headerAdmin.jsp"></jsp:include>
+<button class="btn btn-success" onclick="goBack()">Quay lại</button>
+	<script>
+	    function goBack() {
+	        window.history.back();
+	    }
+	</script>
     <div class="container bootstrap snippets bootdey">
         <div class="panel-body inf-content">
             <div class="row">
-                <div class="col-md-3">
-                <jsp:include page="./linklistAdmin.jsp"></jsp:include>
-			</div>
-			<div class="col-md-9">
+                
+			<div class="col-md-12">
 			<div>
                     <img alt style="width:80px;" title class="img-circle img-thumbnail isTooltip"
                         src="https://i.pinimg.com/564x/df/d5/d0/dfd5d043dfb17b9070fcc7db8e3d5eac.jpg"
@@ -64,7 +67,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="${khachhang.hoTen }">
+                                        <input readonly type="text" border: none outline: none value="${khachhang.hoTen }">
                                     </td>
                                 </tr>
                                 <tr>
@@ -74,7 +77,7 @@
                                         </strong>
                                     </td>
                                     <td class=" text text-primary">                                      
-                                        <input type="text" name="gender" value="${khachhang.gioiTinh}"> Nam                                       
+                                        <input readonly type="text" name="gender" value="${khachhang.gioiTinh}">                                     
                                                                              
                                     </td>
                                 </tr>
@@ -85,19 +88,9 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="${khachhang.sDT}">
+                                        <input readonly type="text" border: none outline: none value="${khachhang.sDT}">
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-bookmark text-primary"></span>
-                                        User
-                                        </strong>
-                                    </td>
-                                    <td class="text-primary">
-                                        <input type="text" border: none outline: none value="${taikhoan.taiKhoan}">
-                                    </td>
-                                </tr>
+                                </tr>               
                                 <tr>
                                     <td>
                                         <strong>
@@ -117,7 +110,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="date" value='${khachhang.ngaySinh}' class ="custom-date-input" >
+                                        <input readonly type="date" value='${khachhang.ngaySinh}' class ="custom-date-input" >
                                     </td>
                                 </tr>
                                 <tr>
@@ -128,7 +121,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text"  value="${khachhang.diaChi}" border: none outline: none>
+                                        <input readonly type="text"  value="${khachhang.diaChi}" border: none outline: none>
                                     </td>
                                 </tr>
                             </tbody>
