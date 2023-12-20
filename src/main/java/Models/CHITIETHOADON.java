@@ -9,7 +9,51 @@ public class CHITIETHOADON {
 	public CHITIETHOADON() {
 		super();
 	}
-
+	private GIAOVAN giaovan;
+	public GIAOVAN getGiaoVan()
+	{
+		return giaovan;
+	}
+	public void setGiaoVan(GIAOVAN giaovan)
+	{
+		this.giaovan = giaovan;
+	}
+	private KHACHHANG khachhang;
+	public KHACHHANG getKhachHang()
+	{
+		return khachhang;
+	}
+	public void setKhachHang(KHACHHANG khachhang)
+	{
+		this.khachhang = khachhang;
+	}
+	private HOADON hoadon;
+	public HOADON getHD()
+	{
+		return hoadon;
+	}
+	public void setHD(HOADON hoadon)
+	{
+		this.hoadon = hoadon;
+	}
+	private SANPHAM sanpham;
+	public SANPHAM getSanPham()
+	{
+		return sanpham;
+	}
+	public void setSanPham(SANPHAM sanpham)
+	{
+		this.sanpham = sanpham;
+	}
+	private GIAMGIA giamgia;
+	public GIAMGIA getGiamGia()
+	{
+		return giamgia;
+	}
+	public void setGiamGia(GIAMGIA giamgia)
+	{
+		this.giamgia = giamgia;
+	}
 	public CHITIETHOADON(String maHD, String maSP, int soLuong, float tongTien) {
 		super();
 		this.maHD = maHD;
@@ -17,7 +61,7 @@ public class CHITIETHOADON {
 		this.soLuong = soLuong;
 		this.tongTien = tongTien;
 	}
-
+	
 	public String getMaHD() {
 		return maHD;
 	}

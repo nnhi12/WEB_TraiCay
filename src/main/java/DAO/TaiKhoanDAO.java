@@ -5,15 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Models.KHACHHANG;
 import Models.TAIKHOAN;
 import Util.HandleException;
 import Util.JDBC;
 
 public class TaiKhoanDAO {
 	private static final String SELECT_TAIKHOAN = "SELECT TaiKhoan, MatKhau FROM taikhoan WHERE MaTaiKhoan = ?";
-	String SqlCreateTK = "INSERT INTO taikhoan (MaTaiKhoan, TaiKhoan, MatKhau, PhanQuyen) VALUE (?,?,?,?)";
-	static String sqlLogin = "SELECT MaTaiKhoan FROM taikhoan WHERE TaiKhoan = ? and MatKhau = ?";
-    static String id = null;
+	private static final String SqlCreateTK = "INSERT INTO taikhoan (MaTaiKhoan, TaiKhoan, MatKhau, PhanQuyen) VALUE (?,?,?,?)";
+	private static final String sqlLogin = "SELECT MaTaiKhoan FROM taikhoan WHERE TaiKhoan = ? and MatKhau = ?";
+	static String id = null;
 	
 	public TaiKhoanDAO() {}
 	
@@ -97,4 +98,34 @@ public class TaiKhoanDAO {
 	        }
 	        return taikhoan;
 	    }
+	   
+	   public String findNextMaTK() {
+		    String sql = "SELECT MAX(MaTaiKhoan) FROM taikhoan";
+		    String nextMaTK = "TK001";
+
+		    try {
+		    	Connection connection = JDBC.getConnection();
+		        PreparedStatement pstmt = connection.prepareStatement(sql);
+		        ResultSet rs = pstmt.executeQuery();
+
+		        if (rs.next()) {
+		            nextMaTK = rs.getString(1);
+		        }
+		        
+		        if (nextMaTK == null) {
+		        	return "TK001";
+		        }
+
+		        rs.close();
+		        pstmt.close();
+
+		    } catch (SQLException e) {
+		        System.out.println("Error: " + e);
+		    }
+
+		    int number = Integer.parseInt(nextMaTK.substring(2)) + 1;
+		    String numberStr = String.format("%03d", number);
+		    return "TK" + numberStr;
+		}
+	  
 }

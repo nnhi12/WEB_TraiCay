@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import Models.SANPHAM;
@@ -25,6 +26,7 @@ public class SanPhamDAO {
 
 	private static final String DELETE_SANPHAM_BYMaSP = "DELETE FROM sanpham WHERE MaSP = ?;";
 	private static final String UPDATE_SANPHAM = "UPDATE sanpham SET TenSP = ?, MaLoaiSP = ?, SoLuong =?, DonViTinh =?, Gia = ?, HinhAnh = ?, MaGG = ?, MaNCC = ? WHERE MaSP = ?;";
+	private static final String SELECT_LISTSP = "SELECT MaSP, TenSP, Gia, HinhAnh FROM sanpham";
 	
 	public SanPhamDAO() {}
 	
@@ -157,7 +159,6 @@ public class SanPhamDAO {
             HandleException.printSQLException(exception);
         }
 	}
-	
 
 	public List<SANPHAM> getAllSP() {
         List<SANPHAM> sanphams = new ArrayList<>();
@@ -210,5 +211,39 @@ public class SanPhamDAO {
         }
         return rowUpdated;
 	}
-
+	
+	public List<SANPHAM> getAllSP() throws IOException {
+        List<SANPHAM> sanphams = new ArrayList<>();
+        Connection conn = JDBC.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(SELECT_LISTSP);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+            	String MaSP = rs.getString("MaSP");
+                String TenSP = rs.getString("TenSP");
+                Float Gia = rs.getFloat("Gia");
+                byte[] HinhAnh = null;
+                InputStream imageStream = rs.getBinaryStream("HinhAnh");
+	            if (imageStream != null) {
+	                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	                byte[] buffer = new byte[4096];
+	                int bytesRead;
+	                while ((bytesRead = imageStream.read(buffer)) != -1) {
+	                    outputStream.write(buffer, 0, bytesRead);
+	                }
+	                HinhAnh = outputStream.toByteArray();
+	            }                
+                String base64Image = Base64.getEncoder().encodeToString(HinhAnh);
+                
+                sanphams.add(new SANPHAM(MaSP, TenSP, Gia, base64Image));          	
+            	
+                                
+            }
+        } catch (SQLException e) {
+            HandleException.printSQLException(e);
+        } finally {
+            JDBC.closeConnection(conn);
+        }
+        return sanphams;
+    }
 }

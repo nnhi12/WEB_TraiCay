@@ -15,7 +15,9 @@ import Util.JDBC;
 public class KhachHangDAO {
 	private static final String SELECT_ALL_KHACHHANG = "SELECT * FROM khachhang";
 	private static final String SELECT_KHACHHANG = "SELECT * FROM khachhang WHERE MaKH = ?";
-	String SqlCreateKH = "INSERT INTO khachhang (MaKH, HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaTaiKhoan) VALUE (?,?,?,?,?,?,?)";	
+	private static final String SqlCreateKH = "INSERT INTO khachhang (MaKH, HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaTaiKhoan) VALUE (?,?,?,?,?,?,?)";
+	private static final String LayMaKH ="SELECT MaKH FROM khachhang WHERE MaTaiKhoan = ?;";
+			
 	public KhachHangDAO() {}
 	
 	public List<KHACHHANG> layAllThongTinKhachHang() {
@@ -79,4 +81,48 @@ public class KhachHangDAO {
 	            JDBC.closeConnection(conn);
 	        }
 	   }
+	public String layMaKH(String MaTK) {
+		String MaKH = null;
+		try (Connection connection = JDBC.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(LayMaKH)) {
+				preparedStatement.setString(1, MaTK);
+				ResultSet rs = preparedStatement.executeQuery();				
+				while (rs.next()) {
+					 MaKH = rs.getString("MaKH");
+				}
+			} catch (SQLException exception) {
+				HandleException.printSQLException(exception);
+			}
+		return MaKH;
+	}
+	
+	public String findNextMaKH() {
+	    String sql = "SELECT MAX(MaKH) FROM khachhang";
+	    String nextMaKH = "KH001";
+
+	    try {
+	    	Connection connection = JDBC.getConnection();
+	        PreparedStatement pstmt = connection.prepareStatement(sql);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            nextMaKH = rs.getString(1);
+	        }
+	        
+	        if (nextMaKH == null) {
+	        	return "KH001";
+	        }
+
+	        rs.close();
+	        pstmt.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error: " + e);
+	    }
+
+	    int number = Integer.parseInt(nextMaKH.substring(2)) + 1;
+	    String numberStr = String.format("%03d", number);
+	    return "KH" + numberStr;
+	}
+
 }

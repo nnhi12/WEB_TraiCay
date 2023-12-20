@@ -26,16 +26,33 @@
 		          </tr>
 		        </thead>
 		        <tbody>
-		        	<!--
+		        	<c:forEach var="GV" items="${listGV}">
 		            <tr>
-		              <td><c:out value="${sanpham.maSanPham}" /></td>
-		              <td><c:out value="${sanpham.tenSanPham}" /></td>
-		              <td><c:out value="${sanpham.soLuong}" /></td>
-		              <td><c:out value="${sanpham.donViTinh}" /></td>
-		              <td><c:out value="${sanpham.gia}" /></td> 
-		              <td><a href="edit?id=<c:out value='${sanpham.maSanPham}' />">Edit</a></td>
+		              <td><c:out value="${GV.maGV}" /></td>
+		              <td><c:out value="${GV.maHD}" /></td>
+		              <td>
+							<c:if test="${GV.tinhTrang eq 'CB'}">
+										<c:out value="Đang chuẩn bị" />
+									</c:if> <c:if test="${GV.tinhTrang eq 'DG'}">
+										<c:out value="Đang giao" />
+									</c:if> <c:if
+										test="${GV.tinhTrang ne 'CB' && GV.tinhTrang ne 'DG'}">
+										<c:out value="Đã giao" />
+									</c:if>
+					 </td>
+		              <td>
+		              	<form action="showinfo" method="post">
+		              		<input type="hidden" id="magv" name="magv" value="${GV.maGV}">
+		              		<input type="hidden" id="mahd" name="mahd" value="${GV.maHD}">
+		              		<button type="submit"
+		              			onmouseover="this.style.color='red'"
+								onmouseout="this.style.color='blue'"
+								style="text-decoration: underline; color:blue; cursor:pointer;
+										background:none; border:none;">Chi tiết</button>
+		              	</form>
+		              </td>
 		            </tr>
-		            -->
+		            </c:forEach>
 		        </tbody>
 		      </table>
 			</div>

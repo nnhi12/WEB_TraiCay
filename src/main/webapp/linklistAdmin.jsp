@@ -16,5 +16,5 @@
 		<a href="<%=request.getContextPath()%>/QuanLySanPhamServlet" class="list-group-item px-3 border-0 rounded-3 list-group-item-info mb-2 pointer">Quản lý sản phẩm</a>
 		<a href="<%= request.getContextPath()%>/giamgia/listgg" class="list-group-item px-3 border-0 rounded-3 list-group-item-info mb-2 pointer">Quản lý giảm giá</a>
 		<a href="<%= request.getContextPath()%>/khachhang/showlist" class="list-group-item px-3 border-0 rounded-3 list-group-item-info mb-2 pointer">Xem thông tin khách hàng</a>
-		<a href="" class="list-group-item px-3 border-0 rounded-3 list-group-item-info mb-2 pointer">Quản lý đơn hàng</a>
+		<a href="<%= request.getContextPath()%>/giaovan/showlist" class="list-group-item px-3 border-0 rounded-3 list-group-item-info mb-2 pointer">Quản lý đơn hàng</a>
 </body>

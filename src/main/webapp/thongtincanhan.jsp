@@ -32,11 +32,19 @@
 </head>
 
 <body>
+<button class="btn btn-success" onclick="goBack()">Quay lại</button>
+	<script>
+	    function goBack() {
+	        window.history.back();
+	    }
+	</script>
     <div class="container bootstrap snippets bootdey">
         <div class="panel-body inf-content">
             <div class="row">
-                <div class="col-md-4">
-                    <img alt style="width:600px;" title class="img-circle img-thumbnail isTooltip"
+                
+			<div class="col-md-12">
+			<div>
+                    <img alt style="width:80px;" title class="img-circle img-thumbnail isTooltip"
                         src="https://i.pinimg.com/564x/df/d5/d0/dfd5d043dfb17b9070fcc7db8e3d5eac.jpg"
                         data-original-title="Usuario">
                     <ul title="Ratings" class="list-inline ratings text-center">
@@ -59,7 +67,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(Name)">
+                                        <input readonly type="text" border: none outline: none value="${khachhang.hoTen }">
                                     </td>
                                 </tr>
                                 <tr>
@@ -69,8 +77,8 @@
                                         </strong>
                                     </td>
                                     <td class=" text text-primary">                                      
-                                        <input type="radio" name="gender" value="male"> Nam                                       
-                                        <input type="radio" name="gender" value="female"> Nữ                                       
+                                        <input readonly type="text" name="gender" value="${khachhang.gioiTinh}">                                     
+                                                                             
                                     </td>
                                 </tr>
                                 <tr>
@@ -80,19 +88,9 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(Số điện thoại)">
+                                        <input readonly type="text" border: none outline: none value="${khachhang.sDT}">
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-bookmark text-primary"></span>
-                                        User
-                                        </strong>
-                                    </td>
-                                    <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(UserName)">
-                                    </td>
-                                </tr>
+                                </tr>               
                                 <tr>
                                     <td>
                                         <strong>
@@ -112,7 +110,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="date" class ="custom-date-input" >
+                                        <input readonly type="date" value='${khachhang.ngaySinh}' class ="custom-date-input" >
                                     </td>
                                 </tr>
                                 <tr>
@@ -123,7 +121,7 @@
                                         </strong>
                                     </td>
                                     <td class="text-primary">
-                                        <input type="text" border: none outline: none value="(địa chỉ)">
+                                        <input readonly type="text"  value="${khachhang.diaChi}" border: none outline: none>
                                     </td>
                                 </tr>
                             </tbody>
@@ -131,13 +129,14 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-
+    <jsp:include page="./footerAdmin.jsp"></jsp:include>
     </script>
 </body>
 

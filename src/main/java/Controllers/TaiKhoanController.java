@@ -17,45 +17,27 @@ import DAO.TaiKhoanDAO;
 import Models.KHACHHANG;
 import Models.TAIKHOAN;
 
-/**
- * Servlet implementation class TaiKhoanController
- */
+
 @WebServlet("/taikhoan/*")
 public class TaiKhoanController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private TaiKhoanDAO taikhoanDAO;
     private KhachHangDAO khachhangDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public TaiKhoanController() {
         super();
-        taikhoanDAO = new TaiKhoanDAO();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		taikhoanDAO = new TaiKhoanDAO();
-	}
-	
 	public void init() {
         taikhoanDAO = new TaiKhoanDAO();
         khachhangDAO = new KhachHangDAO();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String action  = request.getPathInfo(); // cách lấy đường dẫn con trong trường hợp servlet chia nhánh
+		String action  = request.getPathInfo(); 
         try {
             if (action.equals("/ThemTaiKhoan")) {
-                insertSinhvien(request, response);}
+                insertTK(request, response);}
             else if(action.equals("/Login")) {
             	login(request, response);
             }else{
@@ -68,44 +50,15 @@ public class TaiKhoanController extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	public String MaTK() {
-	    String accountCode = "TK";
-
-	    // Sử dụng phương pháp tạo số ngẫu nhiên, ví dụ: Math.random()
-	    int randomCode = (int)(Math.random() * 900) + 100;
-
-	    // Kết hợp phần số ngẫu nhiên vào mã tài khoản
-	    accountCode += randomCode;
-
-	    // Trả về mã tài khoản
-	    return accountCode;
-	}
-    public String MaKH() {
-	    String accountCode = "KH";
-
-	    // Sử dụng phương pháp tạo số ngẫu nhiên, ví dụ: Math.random()
-	    int randomCode = (int)(Math.random() * 900) + 100;
-
-	    // Kết hợp phần số ngẫu nhiên vào mã tài khoản
-	    accountCode += randomCode;
-
-	    // Trả về mã tài khoản
-	    return accountCode;
-	}
     
-    private void insertSinhvien(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    private void insertTK(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     	
         request.setCharacterEncoding("UTF-8");
-        String MaTK = MaTK();
-        String MaKH = MaKH();
+        String MaTK = taikhoanDAO.findNextMaTK();
+        String MaKH = khachhangDAO.findNextMaKH();
         String TaiKhoan = request.getParameter("TaiKhoan");
         String MatKhau = request.getParameter("MatKhau");
         String HoTen = request.getParameter("HoTen");
@@ -122,17 +75,23 @@ public class TaiKhoanController extends HttpServlet {
     }
     
     private void login(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        String TenDangNhap = request.getParameter("TaiKhoan");
+    	request.setCharacterEncoding("UTF-8");
+    	String TenDangNhap = request.getParameter("TaiKhoan");
         String Password = request.getParameter("MatKhau");
         TAIKHOAN taikhoan = new TAIKHOAN();
         taikhoan.setTaiKhoan(TenDangNhap);
         taikhoan.setMatKhau(Password);
         String matk = taikhoanDAO.LOGIN(TenDangNhap, Password);
+        
         if(matk != null)
         {
             taikhoan = taikhoanDAO.selectTaiKhoanByMaTK(matk);
             HttpSession session = request.getSession();
             session.setAttribute("matk", matk);
+            KhachHangDAO khachhangDAO = new KhachHangDAO();
+            String MaKH = khachhangDAO.layMaKH(matk);
+            HttpSession sessions = request.getSession();
+            sessions.setAttribute("maKH", MaKH);
             if(taikhoan.getPhanQuyen().equals("KhachHang"))
             {                
                 response.sendRedirect(request.getContextPath() + "/Sanpham/ListSP");
@@ -141,7 +100,7 @@ public class TaiKhoanController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/ThongBao/list_ThongBaoGiangVienController"); }
         }
         else {
-            request.setAttribute("errMsg", "Thông tin đăng nhập không chính xác");
+            request.setAttribute("errMsg", "Thông tin đăng nhập không chính xác!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.jsp");
             try{
                 dispatcher.forward(request, response);
@@ -150,5 +109,4 @@ public class TaiKhoanController extends HttpServlet {
             }
         }
     }
-
 }
