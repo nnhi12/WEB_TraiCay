@@ -29,12 +29,13 @@
 						<label for="id">Giỏ hàng của bạn</label>
 					</div>
 				</div>
+				<c:set var="tongTien" value="0" scope="page" />
+				<c:set var="selectedProducts" value="" scope="page" />
 				<c:forEach var="gioHang" items="${listGH}" varStatus="status">
 					<div class="row">
 						<div class="horizontal-label">
 							<label> 
-								
-								<input type="checkbox" style = "margin-right: 20px" value = "${gioHang.maSP}">
+								<input type="checkbox" style="margin-right: 20px" value="${listGia[status.index]}" onclick="updateTotal(this); updateSelectedProducts(this)">
 								<img src="assets/contain_straw.jpg" alt="Image" class="label-image"> 
 								<span class="label-text">
 									<a><p>${listTen[status.index]}</p>
@@ -57,6 +58,13 @@
 						</div>
 					</div>
 				</c:forEach>
+				<label for="tongTienLabel">Tổng số tiền: </label>
+				<span id="tongTienLabel">${tongTien}</span>
+				
+				<form id="paymentForm" action="dathang" method="post">
+				    <input type="hidden" name="selectedProducts" value="${selectedProducts}">
+				    <button class="btn-success" style="margin-top: 20px" onclick="goToPayment()">Thanh toán</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -96,6 +104,41 @@
 	        var form = document.getElementById('updateForm');
 	        form.submit();
 	    }
+	</script>
+	
+	<script>
+    function updateTotal(checkbox) {
+        float gia = ${listGia[status.index]};
+        int soluong = ${gioHang.soLuong};
+        float tongTien = 0;
+        
+        if (checkbox.checked) {
+            tongTien += gia * soluong;
+        } else {
+            tongTien -= gia * soluong;
+        }
+        
+        document.getElementById("tongTienLabel").textContent = tongTien.toFixed(2);
+    }
+    
+    function updateSelectedProducts(checkbox) {
+        var selectedProducts = "${selectedProducts}";
+        var maSP = checkbox.value;
+        
+        if (checkbox.checked) {
+            selectedProducts += maSP + ",";
+        } else {
+            selectedProducts = selectedProducts.replace(maSP + ",", "");
+        }
+        
+        document.getElementById("selectedProductsField").value = selectedProducts;
+        "${selectedProducts}" = selectedProducts;
+    }
+    
+    function goToPayment() {
+        // Submit form thanh toán
+        document.getElementById("paymentForm").submit();
+    }
 	</script>
 	<jsp:include page="./footer.jsp"></jsp:include>
 </body>
