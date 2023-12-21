@@ -15,6 +15,7 @@ public class JDBC {
 			
 			String url = "jdbc:mysql://34.124.163.124:3306/dtdm";
 			String username = "root";
+
 			String password = "quamon";
       
 			conn = DriverManager.getConnection(url, username, password);

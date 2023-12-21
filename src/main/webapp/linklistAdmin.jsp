@@ -1,6 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page language="java"%>
-
+<%@ page session="true" %>
 <html>
 <head>
 	<meta charset="UTF-8">
