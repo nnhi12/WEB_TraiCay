@@ -13,7 +13,7 @@
 
 <!-- HEADER -->
 <div class="top-bar">
-      <a href="#" class="logo">13 Fruits<span></span></a>	
+      <a href="<%= request.getContextPath()%>/Sanpham/ListSP" class="logo">13 Fruits<span></span></a>	
 	    <div class="icons">
 	        <a href="<%= request.getContextPath()%>/chitiethoadon/listcthd" class="fas fa-truck"></a> <!-- Vận chuyển -->
 	        <a href="<%= request.getContextPath()%>/giohang/load" class="fas fa-shopping-cart"></a> <!-- Giỏ hàng -->
