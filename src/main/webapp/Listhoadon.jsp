@@ -30,34 +30,31 @@
 		            <th>Họ tên</th>
 		            <th>Địa chỉ</th>
 		            <th>SDT</th>
-		             <th>Tên Sản phẩm</th>
 		            <th>Tổng Tiền</th>
+		            <th>Phương thức thanh toán</th>
 		            <th>Tình Trạng</th>
 		          </tr>
 		        </thead>
 		        <tbody> 
-		        <c:forEach var="gg" items ="${listcthd}">
+		        <c:forEach var="gg" items ="${listcthd}" varStatus="status">
 		            <tr>		       
-		            
-					  <td>${gg.khachHang.hoTen}</td>
-					  <td>${gg.khachHang.diaChi}</td>
-					  <td>${gg.khachHang.sDT}</td>
-					  <td>${gg.sanPham.tenSP}</td>
+					  <td>${khachhang.hoTen}</td>
+					  <td>${khachhang.diaChi}</td>
+					  <td>${khachhang.sDT}</td>
 					  <td>${gg.tongTien}</td>
-					  <td><c:choose>
-					        <c:when test="${'CB' eq gg.giaoVan.tinhTrang}">
-					            Chuẩn bị đóng gói
-					        </c:when>
-					        <c:when test="${'DG' eq gg.giaoVan.tinhTrang}">
-					            Đang giao hàng
-					        </c:when>
-					        <c:when test="${'DT' eq gg.giaoVan.tinhTrang}">
-					            Đã nhận hàng
-					        </c:when>
-					        <c:otherwise>
-					            Trạng thái không xác định
-					        </c:otherwise>
-					    </c:choose></td>
+					  <td>${gg.phuongThucTT}</td>
+					  <td>
+					  		<c:set var="tinhTrang" value="${giaovan[status.index]}"/>
+					  		<c:if test="${tinhTrang.equals('CB')}">
+						        Chuẩn bị đóng gói
+						    </c:if>
+						    <c:if test="${tinhTrang.equals('DG')}">
+						        Đang giao hàng
+						    </c:if>
+						    <c:if test="${tinhTrang.equals('DT')}">
+						        Đã nhận hàng
+						    </c:if>
+						    </td>
 		              <td><a href="viewcthd?mahd=${gg.maHD}"> <i class="material-icons" data-toggle="tooltip" title="Edit" style="font-color: #F49608">chi tiết</i></a>
 		              </td>
 		            </tr>

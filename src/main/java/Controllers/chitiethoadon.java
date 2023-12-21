@@ -1,7 +1,10 @@
 package Controllers;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -20,6 +23,9 @@ import DAO.KhachHangDAO;
 import DAO.SanPhamDAO;
 import Models.CHITIETHOADON;
 import Models.GIAMGIA;
+import Models.GIAOVAN;
+import Models.HOADON;
+import Models.KHACHHANG;
 
 /**
  * Servlet implementation class chitiethoadon
@@ -82,9 +88,18 @@ public class chitiethoadon extends HttpServlet {
 	 private void listcthd(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, IOException, ServletException {
 			 HttpSession session = request.getSession();
-			 String maKH = (String) session.getAttribute("maKH");	 	
-	        List<CHITIETHOADON> listcthd = cthdDAO.selectallhoadon(maKH);
-	        request.setAttribute("listcthd",listcthd );
+			 String maKH = (String) session.getAttribute("maKH");
+			KHACHHANG kh = khDAO.layThongTinKhachHang(maKH);
+	        List<HOADON> listcthd = cthdDAO.selectallhoadon(maKH);
+	        List<String> tts = gvDAO.layTTGiaoVan(maKH);
+	        
+	        request.setAttribute("khachhang",kh);
+	        request.setAttribute("listcthd",listcthd);
+	        request.setAttribute("giaovan",tts);
+	        for (String cthd : tts) {
+	        	System.out.println(cthd);
+	        }
+	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/Listhoadon.jsp");
 	        System.out.println("nuuu");
 	        System.out.println(request);
@@ -92,11 +107,33 @@ public class chitiethoadon extends HttpServlet {
 	    }
 	 private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 		    throws SQLException, ServletException, IOException {
+		 		HttpSession session = request.getSession();
 		        String MaHD = request.getParameter("mahd");
-		        CHITIETHOADON GG = cthdDAO.selectchitiet(MaHD);
+		        List<CHITIETHOADON> chitiets = cthdDAO.selectchitiet(MaHD);
+		        String maKH = (String) session.getAttribute("maKH");
+		        KHACHHANG kh = khDAO.layThongTinKhachHang(maKH);
+		        String tinhtrang = gvDAO.layGiaoVanByMaHD(MaHD).getTinhTrang();
+		        Date thoigiandat = hdDAO.layHoaDon(MaHD).getNgayDatHang();
+		        List<String> tensps = new ArrayList<>();
+		        List<String> donvis = new ArrayList<>();
+		        for (CHITIETHOADON hd : chitiets) {
+		        	String ma = hd.getMaSP();
+		        	String ten = spDAO.layThongTinSP(ma).getTenSP();
+		        	String donvi = spDAO.layThongTinSP(ma).getDonViTinh();
+		        	tensps.add(ten);
+		        	donvis.add(donvi);
+		        }
+		        
+		        Float tongtien = hdDAO.layHoaDon(MaHD).getTongTien();
 		        System.out.println(MaHD);
 		        
-		        request.setAttribute("chitiet", GG);		      
+		        request.setAttribute("khachhang",kh);
+		        request.setAttribute("ten", tensps);
+		        request.setAttribute("donvi", donvis);
+		        request.setAttribute("chitiet",chitiets);
+		        request.setAttribute("tinhtrang",tinhtrang);
+		        request.setAttribute("thoigiandat",thoigiandat);
+		        request.setAttribute("tongtien",tongtien);
 		        RequestDispatcher dispatcher = request.getRequestDispatcher("/chitiethoadon.jsp");        
 		        dispatcher.forward(request, response);
 		        

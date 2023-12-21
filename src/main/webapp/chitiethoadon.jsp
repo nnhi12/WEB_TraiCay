@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>chitiethoadon</title>
+    <title>Chi tiết hóa đơn</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
@@ -54,20 +54,16 @@
                                 <h2 class="mb-1 ">CHI TIẾT ĐƠN HÀNG</h2>
                             </div>
                            
-                                <td><c:choose>
-					        <c:when test="${'CB' eq chitiet.giaoVan.tinhTrang}">
-					            Chuẩn bị đóng gói
-					        </c:when>
-					        <c:when test="${'DG' eq chitiet.giaoVan.tinhTrang}">
-					            Đang giao hàng
-					        </c:when>
-					        <c:when test="${'DT' eq chitiet.giaoVan.tinhTrang}">
-					            Đã nhận hàng
-					        </c:when>
-					        <c:otherwise>
-					            Trạng thái không xác định
-					        </c:otherwise>
-					    </c:choose></td>
+                                <td><c:set var="tinhTrang" value="${tinhtrang}"/>
+					  		<c:if test="${tinhTrang.equals('CB')}">
+						        Chuẩn bị đóng gói
+						    </c:if>
+						    <c:if test="${tinhTrang.equals('DG')}">
+						        Đang giao hàng
+						    </c:if>
+						    <c:if test="${tinhTrang.equals('DT')}">
+						        Đã nhận hàng
+						    </c:if></td>
                            
                         </div>
                         <hr class="my-4">
@@ -76,18 +72,18 @@
                                             
                                     <h5 class="font-size-16 mb-3">Thông tin giao hàng:</h5>                                   
                                     <h5 class="font-size-15 mb-2">Tên khách hàng</h5>
-                                    <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.khachHang.hoTen}'/>">                                 
+                                    <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${khachhang.hoTen}'/>">                                 
                                     <h5 class="font-size-15 mt-2">Địa chỉ</h5>    
-                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.khachHang.diaChi}'/>">                                 
+                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${khachhang.diaChi}'/>">                                 
                                     <h5 class="font-size-15 mt-2">Số Điện Thoại</h5>                              
-                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.khachHang.sDT}'/>">                                                                                                         
+                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${khachhang.sDT}'/>">                                                                                                         
                                     <h5 class="font-size-15 mt2">Ngày đặt</h5>
-                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.HD.ngayDatHang}'/>">                                                                                                         
+                                     <input class="font-size-15 mb-2" type = "text" id ="hoten" value ="<c:out value='${thoigiandat}'/>">                                                                                                         
                                 
                                 </div>
                             </div>                
                         </div>
-
+                        
                         <div class="py-2">
                             <h5 class="font-size-15">  Đơn Hàng</h5>
                             <div class="table-responsive">
@@ -100,28 +96,28 @@
                                                         alt>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
-                                                    <input class="font-size-15 style="  mb-2" type = "text" id ="hoten" value ="<c:out value='${chitiet.sanPham.tenSP}'/>"style="font-size: 20px;" >                                                                                                         
-                                
-                                                    <td> 
-                                                         <div class="font-size-15 mb-2">
-                                                         
-														    <p>Số lượng: </p>
-														<input type="text" id="hoten" value="<c:out value='${chitiet.soLuong} ${chitiet.sanPham.donViTinh}' />">	   
-														</div>
-
-                                                    </td>
-                                                                                                                   
-                                                </div>
-                                            </td>
-                                        </tr>                                    
+                                        </tr>
+                                        
+                                        <c:forEach var="chitiet" items="${chitiet}" varStatus="status">
+										    <tr>
+										        <td>
+										            <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+										                <input class="font-size-15" type="text" id="hoten" value="<c:out value='${ten[status.index]}'/>" style="font-size: 20px;">
+										            </div>
+										        </td>
+										        <td>
+										            <div class="font-size-15">
+										                <p>Số lượng: <input type="text" id="hoten" value="<c:out value='${chitiet.soLuong} ${donvi[status.index]}' />"></p>
+										            </div>
+										        </td>
+										    </tr>
+										</c:forEach>                      
                                      
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">Thành Tiền :</th>
                                             <td class="border-0 text-end">
                                              
-										    <input class="font-size-15 mb-2" type="text" id="hoten" value="<c:out value='${chitiet.tongTien}'/> ">
+										    <input class="font-size-15 mb-2" type="text" id="hoten" value="<c:out value='${tongtien}'/> ">
 											
                                             </td>
                                         </tr>
@@ -130,6 +126,7 @@
                                 </table>
                             </div>                          
                         </div>
+
                     </div>
                     </div>
                 
