@@ -113,7 +113,7 @@ public class DatHangController extends HttpServlet {
             		String magv = gvDAO.findNextMaGV();
             		gvDAO.insertGV(new GIAOVAN(magv, mahd, "CB"));
             		
-	                RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "/taikhoan/Login");   
+	                RequestDispatcher dispatcher = request.getRequestDispatcher("/Sanpham/ListSP");   
             		dispatcher.forward(request, response);
         		}
         		
