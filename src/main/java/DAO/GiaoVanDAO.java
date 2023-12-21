@@ -20,6 +20,8 @@ public class GiaoVanDAO {
 	private static final String UPDATE_TINHTRANG_GIAOVAN = "UPDATE giaovan SET TinhTrang = ? WHERE MAGV = ?";
 	private static final String UPDATE_NGAYNHAN_GIAOVAN = "UPDATE giaovan SET NgayNhanHang = ?, TinhTrang = ? WHERE MAGV = ?";
   	private static final String INSERT_GIAOVAN_SQL = "INSERT INTO giaovan (MaGV, MaHD, TinhTrang) values (?, ?, ?)";
+  	private static final String SELECT_ALL_TinhTrangGIAOVAN = "SELECT TinhTrang from hoadon hd inner join giaovan gv on hd.MaHD = gv.MaHD where MaKH = ?;";
+  	private static final String SELECT_GIAOVAN_ByMaHD = "SELECT * FROM giaovan WHERE MaHD = ?";
 	public GiaoVanDAO() {};
 	
 	public List<GIAOVAN> layAllGiaoVan(){
@@ -125,5 +127,37 @@ public class GiaoVanDAO {
         } catch (SQLException exception) {
             HandleException.printSQLException(exception);
         }
+	}
+	
+	public List<String> layTTGiaoVan(String MaKH){
+		List <String> tts = new ArrayList<>();
+		try (Connection connection = JDBC.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_TinhTrangGIAOVAN)) {
+				preparedStatement.setString(1, MaKH);
+				ResultSet rs = preparedStatement.executeQuery();
+				while (rs.next()) {
+					String tinhtrang = rs.getString("TinhTrang");
+					tts.add(tinhtrang);
+				}
+			} catch (SQLException exception) {
+				HandleException.printSQLException(exception);
+			}
+		return tts;
+	}
+	
+	public GIAOVAN layGiaoVanByMaHD(String MaHD){
+		GIAOVAN gv = null;
+		try (Connection connection = JDBC.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_GIAOVAN_ByMaHD)) {
+				preparedStatement.setString(1, MaHD);
+				ResultSet rs = preparedStatement.executeQuery();
+				while (rs.next()) {
+					String tinhtrang = rs.getString("TinhTrang");
+					gv = new GIAOVAN(MaHD, tinhtrang);
+				}
+			} catch (SQLException exception) {
+				HandleException.printSQLException(exception);
+			}
+		return gv;
 	}
 }

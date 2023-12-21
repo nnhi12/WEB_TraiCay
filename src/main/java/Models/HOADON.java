@@ -15,6 +15,15 @@ public class HOADON {
 		super();
 	}
 
+	public HOADON(String maHD, String maKH, float tongTien, String phuongThucTT, Date ngayDatHang) {
+		super();
+		this.maHD = maHD;
+		this.maKH = maKH;
+		this.tongTien = tongTien;
+		this.phuongThucTT = phuongThucTT;
+		this.ngayDatHang = ngayDatHang;
+	}
+	
 	public HOADON(String maHD, String maKH, float tongTien, String maGG, String phuongThucTT, Date ngayDatHang,
 			boolean trangThai) {
 		super();
