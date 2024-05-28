@@ -1,4 +1,4 @@
-Đây là đồ án của môn điện toán đám mây
+Đây là đồ án của môn điện toán đám mây.
 Thành viên:
 1. Nguyễn Quỳnh Nhi - 21110582  - (Chi tiết sản phẩm/Thêm vào giỏ hàng, Giỏ hàng, Thanh toán, Quản lý đơn hàng/ Chi tiết đơn hàng (Khách hàng))
 2. Lỷ Toàn Phát - 21110910 - (Thông tin chi tiết khách hàng, Quản lý đơn hàng, Chi tiết đơn hàng (Admin))
